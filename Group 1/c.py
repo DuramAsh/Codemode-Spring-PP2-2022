@@ -1,22 +1,7 @@
 # l1 = list(map(int, input().split('a')))
-# # map(int, input().split())
+# map(int, input().split())
 # print(l1)
-# # print(a, b, c)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+# print(a, b, c)
 
 # input: 1 3 5 1 -10
 # output: 2.0 4.0 3.0 -4.5
