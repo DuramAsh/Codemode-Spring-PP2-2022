@@ -4,9 +4,10 @@ Task-1:
     4
     Output:
     6-9-121-306-30-
-
     (5^2) / 4 = 25 / 4 = 6(.25)
+
 Task-2:
+    SOLVE WITHOUT IF ELSE
     Input:
     122[.]123[.]543[.]123
     Output:
