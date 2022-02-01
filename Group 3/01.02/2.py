@@ -1,5 +1,3 @@
-s = input()
-print(s)
-s = int(s)
-print(s)
-print(s)
+l = [1,2,3,4,5]
+if 1 in l:
+    print("lol")
