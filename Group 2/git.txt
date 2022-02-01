@@ -1,0 +1,5 @@
+git status ---> to check your repo
+
+git add .
+git commit -m "my commit 228"
+git push
