@@ -12,13 +12,17 @@ for i in arr:
 print()
 print("-"*20)
 
+# генератор массива
 arr2 = [i+1 for i in range(10)]
 
-print(*arr2)
-print(*arr2[0:3])
-print(*arr2[::-1])
+# распечатать массив
+print("print: ", *arr2)
+# реверс массива
+print("Reverse: ", *arr2[::-1])
 
-print(sum(arr2))
+# сумма масива
+print("Sum of array: ", sum(arr2))
 
+# обращение по индексам, найти сабмассив
 print(*arr2[0:3], end=" -> ")
 print(*arr2[3:])
