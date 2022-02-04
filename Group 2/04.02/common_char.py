@@ -9,6 +9,6 @@ print(arr)
 s = arr[0]
 for elem in arr:
     # print(s, i, sep='-->')
-    print(elem, type(elem))
-    # s = s.intersection(elem)
+    # print(elem, type(elem))
+    s = s.intersection(elem)
 print(*sorted(set(s)), sep='')
