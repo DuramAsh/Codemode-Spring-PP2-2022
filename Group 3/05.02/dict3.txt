@@ -1,0 +1,15 @@
+4
+Nura 
+Bauka 
+Zhaks 
+Adil
+2
+Nura 
+Bauka
+
+Good: 
+Nura
+Bauka
+Bad:
+Zhaks
+Adil
