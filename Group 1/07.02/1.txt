@@ -1,26 +1,11 @@
-First you are given the number n, total number of flights. Then, in the next n lines
-you have pair of city names
-cityA and cityB. This pair means that we have the direct flight from cityA to cityB.
-You should find that city,
-from which we can not fly anywhere.
-Input 1:
-5
-Almaty Semey
-Semey Oral
-Almaty Pavlodar
-Pavlodar Oral
-Pavlodar Semey
-Output 1:
-Oral
+Input:
+2
+SDIUFhhjskdfhkdsJHDF asohufduasidufSHKFHhkflda adsljfh981319yhjaf89123
+DFSHUjsdif132h13hi ahdsjfhahraiiieay123123 ahsfdha3j2h23hjhzfsASHDL
 
-Input 2:
-7
-Almaty New-York
-New-York Astana
-Astana Oral
-Oral Pavlodar
-Almaty Semey
-Semey Pavlodar
-Astana Almaty
-Output 2:
-Pavlodar
+Output:
+The number of Capital letters in first words
+The number of lowercase vowels in second words
+The number of digits in third words
+
+14 16 15
