@@ -4,8 +4,8 @@ SDIUFhhjskdfhkdsJHDF asohufduasidufSHKFHhkflda adsljfh981319yhjaf89123
 DFSHUjsdif132h13hi ahdsjfhahraiiieay123123 ahsfdha3j2h23hjhzfsASHDL
 
 Output:
-The number of Capital letters in first words
-The number of lowercase vowels in second words
-The number of digits in third words
+The number of Capital letters in first words (QWERTYUIOPASDFGHJKLZXCVBNM)
+The number of lowercase vowels in second words (aeiou)
+The number of digits in third words (1234567890)
 
 14 16 15
