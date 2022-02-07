@@ -1,0 +1,6 @@
+arr = list(map(int, input().split()))
+s = set(arr)
+print(s)
+print(s.pop())
+s.remove(5)
+print(s)
