@@ -6,3 +6,6 @@ for i in range(n):
     first.add(a)
     second.add(b)
 print(*second.difference(first))
+# print(first)
+# print(second)
+# print(*first.difference(second))

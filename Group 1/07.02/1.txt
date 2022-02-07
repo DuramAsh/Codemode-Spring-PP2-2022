@@ -1,5 +1,7 @@
-First you are given the number n, total number of flights. Then, in the next n lines you have pair of city names
-cityA and cityB. This pair means that we have the direct flight from cityA to cityB. You should find that city,
+First you are given the number n, total number of flights. Then, in the next n lines
+you have pair of city names
+cityA and cityB. This pair means that we have the direct flight from cityA to cityB.
+You should find that city,
 from which we can not fly anywhere.
 Input 1:
 5
