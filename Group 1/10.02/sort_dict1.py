@@ -15,3 +15,4 @@ d = [
 
 # print(*sorted(d, key=lambda x: x['id'][:3]))
 print(*sorted(d, key=lambda x: (x['id'][:3], x['surname'])))
+
