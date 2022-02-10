@@ -1,10 +1,17 @@
-d = {
-    'Zhapar': '20B8712398123',
-    'Asdfasdf': '19B8712398123',
-    'Zhapazxcvzxvr': '20B8712398123',
-    'Ernat': '18B8712398123'
-}
+d = [
+    {
+        'surname': 'Zhapar',
+        'id': '19B030307'
+    },
+    {
+        'surname': 'Ashim',
+        'id': '19B030307'
+    },
+    {
+        'surname': 'Ernat',
+        'id': '21B21893040'
+    }
+]
 
-# print(d.items())
-
-print(sorted(d, key=lambda x: x[1]))
+# print(*sorted(d, key=lambda x: x['id'][:3]))
+print(*sorted(d, key=lambda x: (x['id'][:3], x['surname'])))
