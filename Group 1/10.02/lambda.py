@@ -21,7 +21,14 @@ for k, v in dict.items():
     print(k, v)
     
 ss = list(dict.items())
-ss.sort(key = lambda x: x[1], reverse=True)
+print(ss)
+ss.sort(key=lambda x: x[1], reverse=True)
 # ss.sort()
 for i in ss:
     print(*i)    
+    
+dates = [(13, 8, 2002), (13, 5, 2002), (24, 6, 1980)]
+dates.sort(key = lambda x: (x[2], x[1], x[0]))
+for i in dates:
+    print(*i)   
+
