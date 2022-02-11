@@ -4,6 +4,8 @@ while True:
     s = input()
     if s == '0':
         break
+    print(s)
+    print(s.split())
     day, month, year = map(str, s.split())
     dates.append((day, month, year))
     
