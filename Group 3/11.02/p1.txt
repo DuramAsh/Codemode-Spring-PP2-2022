@@ -1,0 +1,16 @@
+9
+Ca 40 100$ 
+Na 23 300$ 
+CO 28 150$ 
+O2 32 100$ 
+O2 32 160$
+H2 2 50$
+Li 7 50$
+Ag 217 1000$
+Ti 215 1000$
+
+1)
+Molar -> Price -> Name
+
+2)
+Name -> Price -> Molar
