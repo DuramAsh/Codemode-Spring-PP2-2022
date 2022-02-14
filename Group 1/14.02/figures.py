@@ -1,44 +1,22 @@
-# Создать класс прямоугольников, где будет описан какой-либо
-# прямоугольник, а также добавим функцию для нахождения его площади
-# периметра, изменения его цвета
+class Person:
 
-class Rectangle:
-    def __init__(self, width, height, color):
-        self.width = width
-        self.height = height
-        self.color = color
-
-    def get_area(self):
-        return self.width * self.height
-
-    def get_perimeter(self):
-        return 2 * self.width + 2 * self.height
-
-    def change_color(self, color):
-        self.color = color
-
-    def compare_areas(self, R):
-        if self.get_area() > R.get_area():
-            return self.get_area()
-        else:
-            return R.get_area()
+    def __init__(self, gender):
+        self.gender = gender
 
 
-def compare_area2(pryam1, pryam2):
-    return pryam1.get_area() > pryam2.get_area()
+class Student(Person):
+
+    def __init__(self, loan, gender):
+        super().__init__(gender)
+        self.loan = loan
+
+# class Employee(Person):
+#     pass
 
 
-R1 = Rectangle(400, 30, 'blue')
-R2 = Rectangle(50, 100, 'black')
-# print(R1.height * R1.width)
-# print(R1.get_area())
-# print(R1.get_perimeter())
-# R1.color = 'red' # ТАК ДЕЛАТЬ ПЛОХО!!!
-# print(R1.color)
-# R1.change_color('dasljfljasldkf')
-# print(R1.color)
+# class Teacher(Employee):
+#     pass
 
-# is_bigger = compare_area2(R1, R2)
-is_bigger = R1.compare_areas(R2)
-# set1.intersection(set2)
-print(is_bigger)
+
+Ernat = Student(2500, 'M')
+print(Ernat.loan, Ernat.gender)
