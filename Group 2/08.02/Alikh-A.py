@@ -1,5 +1,5 @@
 arr = list(map(int, input().split()))
-pos = len(arr) - 1
+pos = len(arr) - 1 
 for i in range(len(arr) - 2, -1, -1):
     if arr[i] + i >= pos:
         pos = i
