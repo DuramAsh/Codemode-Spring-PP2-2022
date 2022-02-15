@@ -1,10 +1,9 @@
-from math import pi
-
+# from math import pi
+pi = 3.14
 
 class Figure():
     def __init__(self, color):
         pass
-
 
 class Circle(Figure):
     def __init__(self, radius, color):
@@ -19,6 +18,7 @@ class Circle(Figure):
 	def compare(self, Circ2):
 		pass
 
+	def __mul__(self):
 
 class Square(Figure):
     def __init__(self, length, color):
@@ -40,6 +40,7 @@ def compare(Circle1, Square1):
 
 C1 = Circle('Какие-то параметры')
 C2 = Circle('Какие-то параметры')
+
 S1 = Square('Какие-то параметры')
 S2 = Square('Какие-то параметры')
 
