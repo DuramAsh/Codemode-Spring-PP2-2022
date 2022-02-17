@@ -12,7 +12,6 @@ dd = json.loads(temp)
 # print(type(dd))
 
 
-
 dd['myName'] = 'ourName'
 dd['nums'].sort()
 dd['heroes']['spider-man'] = 'Andrew'

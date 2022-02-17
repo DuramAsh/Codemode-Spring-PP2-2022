@@ -1,25 +1,19 @@
 #include <iostream>
+#include <cmath>
 
 using namespace std;
 
-void f(int x){
-    x = 10;
-    bool x = true;
-    bool z = 0;
-}
-
-int x(){
-
-}
-
-char y(){
-    char c;
-    return c;
-}
-
 int main(){
-    int x = 5;
-    f(x);
-    cout << x;
-
+    int x, y, z;
+    cin >> x >> y >> z;
+    float s;
+    if(x > z + y){
+        s = exp(z / y);
+    }else if(x < z + y){
+        s = exp(y / z);
+    }else{
+        s = sin(z + y);
+    }
+    cout << s;
+    return 0;
 }
