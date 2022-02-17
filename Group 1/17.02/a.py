@@ -1,3 +1,7 @@
+# dict => json : dumps
+# json => dict : loads
+
+
 import json
 
 dd = {
