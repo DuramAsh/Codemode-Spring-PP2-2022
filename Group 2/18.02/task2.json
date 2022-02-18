@@ -1,0 +1,7 @@
+{
+    "model": "asus",
+    "cpu": "16gb",
+    "processor": "ryzen 7",
+    "isNumpad": true,
+    "owners": ["me", "dad", "mom"]
+}
