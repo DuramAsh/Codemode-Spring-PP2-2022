@@ -17,7 +17,7 @@ dd = {
     ]
 }
 
-values = json.dumps(dd, indent=4, sort_keys = True, separators = (",", ':'))
+values = json.dumps(dd, indent=4, sort_keys = True)
 # print(values)
 
 file = open('values_from_a3.json', 'w') # write
