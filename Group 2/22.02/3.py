@@ -1,8 +1,8 @@
 import re
 
 emails = [
-    'duramash.02@gmail.com',
-    'duramash.02@gmail.com8239.048',
+    'duramash.02@gmail.eDuCaT12iON',
+    'duramash.02@gmail.com8239_048',
     'z_ashim@kbtu.kz',
     'shara32@tatarin.ru',
     'vovka25&it.mysyk',
@@ -10,7 +10,7 @@ emails = [
 ]
 # st = 'helloworld'
 # pattern = '^hello$'
-pattern = r'^(.+)@(\w+)\.(\w+)$'
+pattern = r'^(.+)@(\w+)\.([a-z]+)$'
 for email in emails:
     if re.match(pattern, email):
         print(f'Email {email} is valid!')
