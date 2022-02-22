@@ -12,7 +12,7 @@ emails = [
 pattern = r'.+@[a-z]+\.[a-z]+$'
 
 for email in emails:
-    if re.match(pattern, email):
+    if re.match(     pattern, email):
         print(f'Email {email} is valid')
     else:
         print(f'Email {email} is not valid')
