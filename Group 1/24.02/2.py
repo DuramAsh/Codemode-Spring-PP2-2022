@@ -8,3 +8,4 @@ patric = r'def\s(\w+)'
 patterns = re.findall(patric, x)
 
 print(*patterns, sep='\n')
+
