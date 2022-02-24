@@ -5,7 +5,9 @@ passwords = [
 	"adilIjaks",
 	"Group_1",
 	"group-adin",
-	"GRUPPA-DYVA"
+	"GRUPPA-DYVA",
+	"_fgjyDF89",
+	"a_zhaPAR2020"
 ]
 
 s = 'sdfASDF'
@@ -13,7 +15,7 @@ b = "DFGHvbn"
 c = "AbYmRb"
 d = "SUIIIII"
 
-pattern = r'(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[_!@#$]).{6,12}'
+pattern = r'(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.+[_!@#$]).{6,12}'
 pattern_2 = r'([a-z]+)([A-Z]+)'
 
 # print(re.search(pattern, s))
