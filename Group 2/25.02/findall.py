@@ -1,12 +1,13 @@
 import re
-pattern = r'([QWRTYPSDFGHJKLZXCVBNMqwrtypsdfghjklzxcvbnm])(?P<vowels>[aeiouAEIOU]{2,})[QWRTYPSDFGHJKLZXCVBNMqwrtypsdfghjklzxcvbnm]'
-
-s = input()
-arr = re.findall(pattern, s, re.I)
-if not arr:
+v = "AEIOUaeiou"
+c = "QWRTYPSDFGHJKLZXCVBNMqwrtypsdfghjklzxcvbnm"
+arr = re.findall(r"(?=[%s]([%s]{2,})[%s])" % (c, v, c), input())
+if arr:
+    print(*arr, sep='\n')
+else:
     print(-1)
-    exit()
-print(*arr, sep='\n')
-
-matches = re.finditer(r'(?=(\d{10}))',s)
-results = [int(match.group(1)) for match in matches]
+    
+    
+# layout = '%s is boy' % (input())
+# layout_format = f'{input()} is boy'
+# print(layout)
