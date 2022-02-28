@@ -1,0 +1,5 @@
+{
+    "1" : (Name, randint(1,500))
+    "2" : (Name, randint(1,500))
+    "3" : (Name, randint(1,500))
+}

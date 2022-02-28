@@ -1,0 +1,18 @@
+{
+     "age": 19,
+     "heroes": {
+          "captain_america": "Steve",
+          "dr_strange": "Steven",
+          "iron_man": "Tony",
+          "scarlet_witch": "Wanda",
+          "spider_man": "Peter"
+     },
+     "myName": "Dias",
+     "nums": [
+          7,
+          13,
+          99,
+          121,
+          314
+     ]
+}

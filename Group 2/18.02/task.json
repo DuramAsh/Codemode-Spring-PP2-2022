@@ -1,0 +1,11 @@
+{
+    "myName": "Nura",
+    "age": 19,
+    "nums": [314, 7, 121, 13, 99],
+    "heroes" : {
+        "iron_man" : "Tony",
+        "captain_america" : "Steve",
+        "scarlet_witch": "Wanda",
+        "dr_strange": "Steven"
+    }
+}

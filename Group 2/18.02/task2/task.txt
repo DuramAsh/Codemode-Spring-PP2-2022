@@ -1,0 +1,6 @@
+1 : (Name, randint(1,500))
+
+#exp
+{
+    "1" : (Name, randint(1,500))
+}

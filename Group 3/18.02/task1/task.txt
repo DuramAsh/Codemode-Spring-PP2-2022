@@ -1,0 +1,10 @@
+-- Task
+1) Load json file
+work with dict:
+1) change the name
+3) sort array
+4) add spider man in dict in json
+-- Dumping
+dump to json file:
+1) with indent 5
+2) sorted
