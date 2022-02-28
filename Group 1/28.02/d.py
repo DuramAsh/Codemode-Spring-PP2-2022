@@ -35,7 +35,7 @@ while True:
             print("Uzhe est'")
         else:
             os.mkdir(imya)
-            print("Created {imya}")
+            print(f"Created {imya}")
 
     elif command == 'create file':
         imya = input()
@@ -43,7 +43,9 @@ while True:
             print("Uzhe est'")
         else:
             f = open(imya, 'w')
+            s = input("Che napisat'?\n")
+            f.write(s)
             f.close()
-            print("Created {imya}")
+            print(f"Created {imya}")
     elif command == 'exit':
         break
