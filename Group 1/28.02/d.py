@@ -9,8 +9,11 @@ while True:
 
     if command == 'cd':
         kuda = input()
-        if os.path.isdir(kuda):
+        if os.path.isdir(kuda) and os.path.exists(kuda):
             os.chdir(kuda)
+            print("Done")
+        else:
+            print("Not a directory")
     
     elif command == 'dir':
         print(os.listdir(os.getcwd()), sep='\n')
@@ -18,5 +21,29 @@ while True:
     elif command == 'gdeya':
         print(f'The current directory is: [{os.getcwd()}]')
 
+    elif command == 'del':
+        chto = input()
+        if os.path.exists(chto):
+            os.remove(chto)
+            print("done")
+        else:
+            print("there is no such file")
+
+    elif command == 'create dir':
+        imya = input()
+        if os.path.exists(imya):
+            print("Uzhe est'")
+        else:
+            os.mkdir(imya)
+            print("Created {imya}")
+
+    elif command == 'create file':
+        imya = input()
+        if os.path.exists(imya):
+            print("Uzhe est'")
+        else:
+            f = open(imya, 'w')
+            f.close()
+            print("Created {imya}")
     elif command == 'exit':
         break
