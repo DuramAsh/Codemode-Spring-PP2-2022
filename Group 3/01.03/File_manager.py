@@ -24,18 +24,47 @@ import os
 class File_manager():
     def __init__(self):
         pass
+    
+    def getCurrentPos(self):
+        return os.getcwd()
+    
+    def changeDirectory(self, dir):
+        try:
+            os.chdir(dir)
+            print("Success")
+        except FileNotFoundError:
+            print("Dir not found")
+    
+    def makeDirectory(self, name):
+        try:
+            os.mkdir(name)
+            print("Success")
+        except Exception:
+            print("Error")
 
-    def test(self):
-        print('SUccess')
-
+    def makeFile(self, name):
+        try:
+            open(name, "w").close()
+            print("Success")
+        except Exception:
+            print("Error")
+    
+    def show(self):
+        print(os.listdir())
 
 mfm = File_manager()
 while True:
     command = input()
-
-    if command == 'test':
-        mfm.test()
-
+    if command == "getpos":
+        print(mfm.getCurrentPos())
+    elif command == "changeDir":
+        mfm.changeDirectory(input())
+    elif command == "makeDir":
+        mfm.makeDirectory(input())
+    elif command == "makeFile":
+        mfm.makeFile(input())
+    elif command == "show":
+        mfm.show()
     elif command == 'exit':
         break
         
