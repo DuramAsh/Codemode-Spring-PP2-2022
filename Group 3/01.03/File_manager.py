@@ -50,7 +50,38 @@ class File_manager():
             print("Error")
     
     def show(self):
-        print(os.listdir())
+        cntFile, cntDir = 0, 0 
+        for file in os.listdir():
+            if os.path.isdir(file):
+                print(f"<DIR> {file}")
+                cntDir += 1
+            elif os.path.isfile(file):
+                print(f"<FILE> {file}")
+                cntFile += 1
+        print(f"Files:{cntFile}\nDirs:{cntDir}")
+        
+    def toRoot(self):
+        while os.getcwd() != 'C:\\':
+            os.chdir('..')
+    
+    def rename(self, oldName, newName):
+        try:
+            os.rename(oldName, newName)
+            print("Success")
+        except Exception:
+            print("Error")
+    
+    def add(self, name):
+        newContent = input()
+        with open(name, 'a') as wf:
+            wf.write(newContent)
+
+    def replace(self, oldName, newName):
+        try:
+            os.replace(oldName, newName)
+            print("Success")
+        except:
+            print("Error")
 
 mfm = File_manager()
 while True:
@@ -63,8 +94,16 @@ while True:
         mfm.makeDirectory(input())
     elif command == "makeFile":
         mfm.makeFile(input())
-    elif command == "show":
+    elif command == "dir":
         mfm.show()
+    elif command == "toRoot":
+        mfm.toRoot()
+    elif command == "rename":
+        mfm.rename(input(),input())
+    elif command == "add":
+        mfm.add(input())
+    elif command == "replace":
+        mfm.replace(input(),input())
     elif command == 'exit':
         break
         
