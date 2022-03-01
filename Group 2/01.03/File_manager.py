@@ -31,7 +31,7 @@ class File_manager:
     def change_pos(self, path):
         os.chdir(path)
         print('Completed Succesfully')
-        self.showPosition()
+        self.show_pos()
 
     def create_dir(self, dir):
         try:
@@ -47,10 +47,10 @@ class File_manager:
         except Exception as e:
             print(str(e))
 
-    def all_dir(self, path):
-        print(os.listdir(path))
+    def all_dir(self):
+        print(os.listdir('.'))
         cnt_d, cnt_f = 0, 0
-        for i in os.listdir(path):
+        for i in os.listdir('.'):
             if os.path.isfile(i):
                 cnt_f += 1
             elif os.path.isdir(i):
