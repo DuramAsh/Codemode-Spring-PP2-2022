@@ -20,14 +20,59 @@ import os
 
 # my_file_manager = File_manager()
 
+
 class File_manager:
     def __init__(self):
         pass
 
-    def showPosition(self):
+    def show_pos(self):
         print(os.getcwd())
 
-    def changePosition(self, path):
+    def change_pos(self, path):
         os.chdir(path)
         print('Completed Succesfully')
         self.showPosition()
+
+    def create_dir(self, dir):
+        try:
+            os.mkdir(dir)
+            print("Success")
+        except Exception as e:
+            print(str(e))
+
+    def create_file(self, filename):
+        try:
+            open(filename, 'w').close()
+            print('Success')
+        except Exception as e:
+            print(str(e))
+
+    def all_dir(self, path):
+        print(os.listdir(path))
+        cnt_d, cnt_f = 0, 0
+        for i in os.listdir(path):
+            if os.path.isfile(i):
+                cnt_f += 1
+            elif os.path.isdir(i):
+                cnt_d += 1
+        print(f'Amount of files: {cnt_f}\nAmount of dirs: {cnt_d}')
+
+    def default(self):
+        self.change_pos('C:\\')
+
+    def rename(self, old_name, new_name):
+        try:
+            os.rename(old_name, new_name)
+            print("Success")
+        except Exception as e:
+            print(str(e))
+
+    def add(self, filename, what):
+        with open(filename, 'a') as f:
+            f.write(what)
+
+    def replace(self, old_name, new_name):
+        old = str(os.getcwd() + '\\' +old_name)
+        new = str(os.getcwd() + '\\' + new_name)
+        os.replace(old, new)
+        print('Success')
