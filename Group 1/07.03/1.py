@@ -20,7 +20,8 @@ while is_running:
             is_running = False
     
     screen.fill(WHITE)
-    pg.draw.rect(screen, BLACK, (WIDTH // 2 - 50, HEIGHT // 2 - 50, 100, 100))
+    pg.draw.rect(screen, BLACK, (WIDTH // 2 - 50, HEIGHT // 2 - 50, 100, 100)) # (экран, цвет, (х0, у0, ширина, высота), ширина рамки)
+    pg.draw.rect(screen, RED, (WIDTH // 2 - 30, HEIGHT // 2 - 30, 60, 60)) # (экран, цвет, (х0, у0, ширина, высота), ширина рамки)
 
     pg.display.flip()
 pg.quit()
