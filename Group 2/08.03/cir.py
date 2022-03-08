@@ -1,4 +1,5 @@
 import pygame
+import math
 
 pygame.init()
 
@@ -12,6 +13,7 @@ RED = (255, 0, 0)
 
 FPS = 30
 angle = 0
+x, y = 650, 300
 
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("TEST PROGRAM")
@@ -30,8 +32,13 @@ while not finished:
 
     screen.fill(WHITE)
 
-    pygame.draw.circle(screen, BLACK, (400, 300), 250, 5)
-    # pygame.draw.circle(screen, RED, (650, 300), 20)
+    pygame.draw.circle(screen, BLACK, (WIDTH // 2, HEIGHT // 2), 250, 5)
+    pygame.draw.circle(screen, RED, (x, y), 20)
+    
+    x = WIDTH // 2 + math.cos(math.radians(angle)) * 250
+    y = HEIGHT // 2 - math.sin(math.radians(angle)) * 250
+    
+    angle += 1
 
     pygame.display.flip()
 
