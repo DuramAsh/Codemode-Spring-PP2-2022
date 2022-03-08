@@ -38,10 +38,10 @@ while not finished:
 
     # pygame.draw.line(переменная за экран, цвет, старт_координата, энд_координата, толщина)
     pygame.draw.rect(screen, BLACK, (x, y, 100, 100))
-    
-    if x + 100 == WIDTH or x == 0:
+
+    if x + 100 >= WIDTH or x <= 0:
         dx *= (-1)
-    if y + 100 == HEIGHT or y == 0:
+    if y + 100 >= HEIGHT or y <= 0:
         dy *= (-1)
 
     pygame.display.flip()  # отображаем изменения на экране
