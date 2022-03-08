@@ -33,12 +33,8 @@ while not finished:
 
     screen.fill(WHITE)  # заливка
 
-    text1 = font.render("HELLO", True, RED)
-    rotated_text1 = pygame.transform.rotate(text1, angle)
-    screen.blit(rotated_text1, (200, 200))
-    angle += 5
-    # text2 = font.render("HELLO", False, RED)
-    # screen.blit(text2, (200, 300))
+    pygame.draw.circle(screen, BLACK, (400, 300), 250, 5)
+    pygame.draw.circle(screen, RED, (650, 300), 20)
 
     pygame.display.flip()  # отображаем изменения на экране
 
