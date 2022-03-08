@@ -24,8 +24,11 @@ finished = False
 font = pygame.font.SysFont("Times New Roman", 18, True)
 
 
+
 while not finished:
     clock.tick(FPS)
+
+    coor = pygame.mouse.get_pos() # tuple(x,y) of our mouse
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -40,11 +43,13 @@ while not finished:
 
     pygame.draw.circle(screen, BLACK, (WIDTH // 2, HEIGHT // 2), RAD, 5)
 
-    pygame.draw.line(screen, BLACK, (WIDTH // 2 - RAD, HEIGHT // 2), (WIDTH // 2 + RAD, HEIGHT // 2), 2)
-    pygame.draw.line(screen, BLACK, (WIDTH // 2, HEIGHT // 2 - RAD), (WIDTH // 2, HEIGHT // 2 + RAD), 2)
-    
     pygame.draw.line(screen, RED, (x, y), (WIDTH // 2, y), 3)
     pygame.draw.line(screen, BLUE, (x, y), (x, HEIGHT // 2), 3)
+
+    pygame.draw.line(screen, GREEN, (WIDTH // 2, HEIGHT // 2), (x,y), 5)
+
+    pygame.draw.aaline(screen, BLACK, (WIDTH // 2 - RAD, HEIGHT // 2), (WIDTH // 2 + RAD, HEIGHT // 2), 2)
+    pygame.draw.aaline(screen, BLACK, (WIDTH // 2, HEIGHT // 2 - RAD), (WIDTH // 2, HEIGHT // 2 + RAD), 2)
 
     pygame.draw.circle(screen, RED, (x, y), 15)
 
