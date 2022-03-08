@@ -15,6 +15,8 @@ FPS = 30
 angle = 0
 x, y = 650, 300
 
+font = pygame.font.SysFont("Times New Roman", 18)
+
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("TEST PROGRAM")
 
@@ -34,12 +36,13 @@ while not finished:
 
     pygame.draw.circle(screen, BLACK, (WIDTH // 2, HEIGHT // 2), 250, 5)
     pygame.draw.circle(screen, RED, (x, y), 20)
-    
+
     x = WIDTH // 2 + math.cos(math.radians(angle)) * 250
     y = HEIGHT // 2 - math.sin(math.radians(angle)) * 250
-    
-    angle += 1
 
+    angle += 1
+    text = font.render(f"sin {angle % 360} = {math.sin(math.radians(angle))}", True, RED)
+    screen.blit(text, (200, 0))
     pygame.display.flip()
 
 pygame.quit()
