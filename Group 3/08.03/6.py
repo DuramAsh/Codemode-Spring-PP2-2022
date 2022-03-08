@@ -40,10 +40,20 @@ while not finished:
 
     pygame.draw.circle(screen, BLACK, (WIDTH // 2, HEIGHT // 2), RAD, 5)
 
+    pygame.draw.line(screen, BLACK, (WIDTH // 2 - RAD, HEIGHT // 2), (WIDTH // 2 + RAD, HEIGHT // 2), 2)
+    pygame.draw.line(screen, BLACK, (WIDTH // 2, HEIGHT // 2 - RAD), (WIDTH // 2, HEIGHT // 2 + RAD), 2)
+    
+    pygame.draw.line(screen, RED, (x, y), (WIDTH // 2, y), 3)
+    pygame.draw.line(screen, BLUE, (x, y), (x, HEIGHT // 2), 3)
+
     pygame.draw.circle(screen, RED, (x, y), 15)
 
     sinus = font.render(f'sin({angle % 360}): {math.sin(math.radians(angle)):.3f}', True, RED)
+    cosin = font.render(f'cos({angle % 360}): {math.cos(math.radians(angle)):.3f}', True, BLUE)
+
+
     screen.blit(sinus, (200, 25))
+    screen.blit(cosin, (500, 25))
 
 
     pygame.display.flip()
