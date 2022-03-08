@@ -10,6 +10,7 @@ WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
 RED = (255, 0, 0)
 BLUE = (0, 0, 255)
+GREEN = (0, 255, 0)
 
 
 FPS = 30
@@ -45,14 +46,15 @@ while not finished:
                      2), (WIDTH // 2 + 250, HEIGHT // 2), 2)
     pygame.draw.line(screen, BLACK, (WIDTH // 2, HEIGHT //
                      2 - 250), (WIDTH // 2, HEIGHT // 2 + 250), 2)
-    pygame.draw.circle(screen, RED, (x, y), 20)
+    pygame.draw.circle(screen, GREEN, (x, y), 10)
 
     angle += 1
-    text = font.render(
+    text1 = font.render(
         f"sin {angle % 360} = {math.sin(math.radians(angle)):.2f}", True, RED)
-    text = font.render(
+    text2 = font.render(
         f"cos {angle % 360} = {math.cos(math.radians(angle)):.2f}", True, BLUE)
-    screen.blit(text, (200, 0))
+    screen.blit(text1, (200, 0))
+    screen.blit(text2, (200, 20))
     pygame.display.flip()
 
 pygame.quit()
