@@ -52,6 +52,5 @@ while running:
     screen.blit(r1, (10, 0))
     screen.blit(r2, (10, 25))
 
-
     pg.display.flip()
 pg.quit()
