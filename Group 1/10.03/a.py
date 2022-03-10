@@ -5,7 +5,7 @@ import pygame as pg
 import random
 
 pg.init()
-pg.display.set_caption("Square moving")
+pg.display.set_caption("Square changes color")
 WIDTH = 800
 HEIGHT = 600
 FPS = 60
