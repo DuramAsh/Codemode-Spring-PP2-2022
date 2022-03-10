@@ -34,6 +34,10 @@ while running:
     screen.fill(WHITE)
     
     pg.draw.circle(screen, BLACK, (WIDTH // 2, HEIGHT // 2), 250, 5)
+    pg.draw.line(screen, BLACK, (WIDTH // 2, HEIGHT // 2 - 250), (WIDTH // 2, HEIGHT // 2 + 250), 3)
+    pg.draw.line(screen, BLACK, (WIDTH // 2 - 250, HEIGHT // 2), (WIDTH // 2 + 250, HEIGHT // 2), 3)
+    pg.draw.line(screen, RED, (x, y), (x, HEIGHT // 2), 3)
+    pg.draw.line(screen, BLUE, (x, y), (WIDTH // 2, y), 3)
     pg.draw.circle(screen, GREEN, (x, y), 15)
     x = WIDTH // 2 + math.cos(math.radians(angle)) * 250
     y = HEIGHT // 2 - math.sin(math.radians(angle)) * 250
@@ -47,6 +51,7 @@ while running:
 
     screen.blit(r1, (10, 0))
     screen.blit(r2, (10, 25))
+
 
     pg.display.flip()
 pg.quit()
