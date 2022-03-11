@@ -1,4 +1,5 @@
 import pygame
+from random import randint
 pygame.init()
 
 #Global Variables
@@ -22,6 +23,7 @@ circ_x, circ_y = WIDTH // 2, HEIGHT // 2
 RAD = 40
 dx, dy = 0, 0
 step = 5
+color = RED
 while not finished:
     clock.tick(FPS)
 
@@ -43,11 +45,13 @@ while not finished:
             if event.key == pygame.K_DOWN and circ_y + RAD < HEIGHT:
                 dy = step
                 dx = 0
+            if event.key == pygame.K_SPACE:
+                color = (randint(0, 255), randint(0, 255), randint(0, 255))
 
     circ_x += dx
     circ_y += dy
     
-    pygame.draw.circle(screen, RED, (circ_x, circ_y), RAD)
+    pygame.draw.circle(screen, color, (circ_x, circ_y), RAD)
 
     pygame.display.flip()
 pygame.quit()
