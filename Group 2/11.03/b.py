@@ -10,10 +10,14 @@ RED = (255, 0, 0)
 BLUE = (0, 0, 255)
 GREEN = (0, 255, 0)
 
+#Background Image
 img = pygame.image.load("./img/background.jfif") # 1000x660
-
+#Music
 pygame.mixer.music.load("./music/back_mus.mp3")
 pygame.mixer.music.play(-1)
+#Font
+font = pygame.font.Font("./font/bebas.ttf", 150)
+text = font.render("Test", True, (0,0,0))
 
 FPS = 60
 
@@ -33,8 +37,8 @@ while not finished:
 
     # screen.fill(WHITE)
     screen.blit(img, (0, 0))
+    pos = text.get_rect(center = (WIDTH // 2, HEIGHT // 2))
+    screen.blit(text, pos)
 
     pygame.display.flip()
 pygame.quit()
-
-#
