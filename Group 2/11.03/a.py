@@ -1,5 +1,5 @@
-from re import X
 import pygame
+import random
 
 pygame.init()
 
@@ -10,6 +10,7 @@ BLACK = (0, 0, 0)
 RED = (255, 0, 0)
 BLUE = (0, 0, 255)
 GREEN = (0, 255, 0)
+COLOR = BLUE
 
 
 FPS = 60
@@ -24,7 +25,6 @@ radius = 30
 dx, dy = 0, 0
 acceleration = 1
 # new_var or +FPS
-
 clock = pygame.time.Clock()
 
 while not finished:
@@ -48,21 +48,25 @@ while not finished:
         if event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
             if dx == 0 and dy == 0:
                 acceleration += 1
-            elif dy == 0:
+            elif dy == 0 and dx != 0:
                 acceleration += 1
                 dx = acceleration
-            elif dx == 0:
+            elif dx == 0 and dy != 0:
                 acceleration += 1
                 dy = acceleration
             # dx = acceleration
             # dy = acceleration
-        
-    print(dx, dy, acceleration)
+        if event.type == pygame.KEYDOWN and event.key == pygame.K_c:
+            COLOR = (random.randint(0, 255), random.randint(
+                0, 255), random.randint(0, 255))
+
     screen.fill(WHITE)
-    pygame.draw.circle(screen, BLUE, (x, y), radius)
-    
+    COLOR = (random.randint(0, 255), random.randint(
+        0, 255), random.randint(0, 255))
+    pygame.draw.circle(screen, COLOR, (x, y), radius)
+
     x += dx
     y += dy
-    
+
     pygame.display.flip()
 pygame.quit()
