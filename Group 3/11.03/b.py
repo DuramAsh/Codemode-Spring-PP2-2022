@@ -33,20 +33,25 @@ while not finished:
         if event.type == pygame.QUIT:
             finished = True
         if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_RIGHT and circ_x + RAD < WIDTH:
+            if event.key == pygame.K_RIGHT:
                 dx = step
                 dy = 0
-            if event.key == pygame.K_LEFT and circ_x - RAD > 0:
+            if event.key == pygame.K_LEFT:
                 dx = -step
                 dy = 0
-            if event.key == pygame.K_UP and circ_y - RAD > 0:
+            if event.key == pygame.K_UP:
                 dy = -step
                 dx = 0
-            if event.key == pygame.K_DOWN and circ_y + RAD < HEIGHT:
+            if event.key == pygame.K_DOWN:
                 dy = step
                 dx = 0
             if event.key == pygame.K_SPACE:
                 color = (randint(0, 255), randint(0, 255), randint(0, 255))
+            if event.key == pygame.K_w:
+                step += 5
+            if event.key == pygame.K_s and step > 0:
+                step -= 5
+
 
     circ_x += dx
     circ_y += dy
