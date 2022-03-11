@@ -42,10 +42,11 @@ while not finished:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             finished = True
-        if event.type == pygame.KEYDOWN and event.key == pygame.K_p:
-            pygame.mixer.music.stop()
-        if event.type == pygame.KEYDOWN and event.key == pygame.K_m:
-            pygame.mixer.music.play(-1)
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_p:
+                pygame.mixer.music.stop()
+            if event.key == pygame.K_m:
+                pygame.mixer.music.play(-1)
 
     pygame.draw.circle(screen, RED, (c_x, c_y), RAD)
 
