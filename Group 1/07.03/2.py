@@ -28,7 +28,6 @@ while is_running:
     
     font = pg.font.Font(None, 50)
     text1 = font.render("Welcome", True, GREEN)
-    
     screen.blit(text1, (30, 70))
     
     font2 = pg.font.SysFont("Times New Roman", 60, True, False)
