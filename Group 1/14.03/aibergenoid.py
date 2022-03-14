@@ -28,15 +28,21 @@ x_c, y_c = WIDTH // 2, HEIGHT - 150
 dx, dy = 4, -6
 r = 30
 score = 0
+x = 0
 
 running = True
 lose = False
+mouse = False
 
 while running:
     clock.tick(FPS)
     for event in pg.event.get():
         if event.type == pg.QUIT:
             running = False
+        if event.type == pg.KEYDOWN:
+            if event.key == pg.K_c:
+                mouse = not mouse
+                
 
     screen.fill(WHITE)
     screen.blit(background_img, (0, 0))
@@ -44,11 +50,13 @@ while running:
     pg.draw.circle(screen, RED, (x_c, y_c), r)
     
     keys = pg.key.get_pressed()
+    if mouse:
+        (x, y_r) = pg.mouse.get_pos()
         
     if keys[pg.K_LEFT]:
-        x_r -= 3
+        x -= 3
     elif keys[pg.K_RIGHT]:
-        x_r += 3
+        x += 3
             
 
     if x_c + r >= WIDTH or x_c - r <= 0:
@@ -61,21 +69,21 @@ while running:
     x_c += dx
     y_c += dy
 
-    (x_r, y_r) = pg.mouse.get_pos()
-    if x_r <= 200:
-        x_r = 200
-    if x_r >= 600:
-        x_r = 600
+    
+    if x <= 200:
+        x = 200
+    if x >= 600:
+        x = 600
 
     if y_c >= HEIGHT:
         lose = True
         pg.mixer.music.stop()
 
-    pg.draw.rect(screen, BLUE, (x_r - 200, 500, 400, 20))
+    pg.draw.rect(screen, BLUE, (x - 200, 500, 400, 20))
 
     ball_point = (x_c, y_c + r)
     # Collision of ball with blue thing
-    if (ball_point[0] in range(x_r - 200, x_r + 200 + 1)) and (ball_point[1] >= 500):
+    if (ball_point[0] in range(x - 200, x + 200 + 1)) and (ball_point[1] >= 500):
         dy *= -1
         score += 1
 
