@@ -26,9 +26,8 @@ font = pg.font.SysFont("Times New Roman", 40, True)
 
 x_c, y_c = WIDTH // 2, HEIGHT - 150
 dx, dy = 4, -6
-# dx, dy = 0, 0
 r = 30
-score = 228
+score = 0
 
 running = True
 lose = False
@@ -46,8 +45,10 @@ while running:
 
     if x_c + r >= WIDTH or x_c - r <= 0:
         dx *= -1
+        score += 1
     if y_c - r <= 0:
         dy *= -1
+        score += 1
 
     x_c += dx
     y_c += dy
@@ -60,6 +61,7 @@ while running:
 
     if y_c >= HEIGHT:
         lose = True
+        pg.mixer.music.stop()
 
     pg.draw.rect(screen, BLUE, (x_r - 200, 500, 400, 20))
 
@@ -67,6 +69,7 @@ while running:
     # Collision of ball with blue thing
     if (ball_point[0] in range(x_r - 200, x_r + 200 + 1)) and (ball_point[1] >= 500):
         dy *= -1
+        score += 1
 
     while lose:
         clock.tick(FPS)
@@ -74,8 +77,18 @@ while running:
             if event.type == pg.QUIT:
                 running = False
                 lose = False
-        pg.mixer.music.stop()
-        pg.draw.rect(screen, WHITE, (WIDTH // 2 - 200, HEIGHT // 2 - 200, 400, 400))
+            if event.type == pg.KEYDOWN and event.key == pg.K_r:
+                x_c, y_c = WIDTH // 2, HEIGHT - 150
+                dx, dy = 4, -6
+                r = 30
+                score = 0
+                pg.mixer.music.play(-1)
+                lose = False
+                running = True
+
+        
+        pg.draw.rect(screen, WHITE, (WIDTH // 2 - 200,
+                     HEIGHT // 2 - 200, 400, 400))
         text1 = font.render('GAME OVER', False, False)
         text2 = font.render(f'Your score is: {score}', False, False)
         screen.blit(text1, (WIDTH // 2 - 200, HEIGHT // 2 - 200))
@@ -85,7 +98,7 @@ while running:
 pg.quit()
 
 
-# Sharik + 
+# Sharik +
 # Kolliziya s granitsami +
 # Shtuka vnizu +
 # Dvigat' shtuku vnizu +
