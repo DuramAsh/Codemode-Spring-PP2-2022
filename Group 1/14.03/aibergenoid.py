@@ -34,3 +34,10 @@ while running:
     screen.blit(background_img, (0, 0))
     pg.display.flip()
 pg.quit()
+
+
+# Sharik
+# Kolliziya s granitsami
+# Shtuka vnizu
+# Dvigat' shtuku vnizu
+# Kolliziya sharika so shtukoy vnizu
