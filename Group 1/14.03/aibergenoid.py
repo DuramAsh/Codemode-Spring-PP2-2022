@@ -10,6 +10,9 @@ WIDTH = 800
 HEIGHT = 600
 FPS = 60
 
+background_img = pg.image.load("./images/background.png")
+background_img = pg.transform.scale(background_img, (WIDTH, HEIGHT))
+
 BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
 RED = (255, 0, 0)
@@ -28,5 +31,6 @@ while running:
             running = False
         
     screen.fill(WHITE)
+    screen.blit(background_img, (0, 0))
     pg.display.flip()
 pg.quit()
