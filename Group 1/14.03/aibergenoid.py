@@ -42,6 +42,14 @@ while running:
     screen.blit(background_img, (0, 0))
 
     pg.draw.circle(screen, RED, (x_c, y_c), r)
+    
+    keys = pg.key.get_pressed()
+        
+    if keys[pg.K_LEFT]:
+        x_r -= 3
+    elif keys[pg.K_RIGHT]:
+        x_r += 3
+            
 
     if x_c + r >= WIDTH or x_c - r <= 0:
         dx *= -1
@@ -77,14 +85,15 @@ while running:
             if event.type == pg.QUIT:
                 running = False
                 lose = False
-            if event.type == pg.KEYDOWN and event.key == pg.K_r:
-                x_c, y_c = WIDTH // 2, HEIGHT - 150
-                dx, dy = 4, -6
-                r = 30
-                score = 0
-                pg.mixer.music.play(-1)
-                lose = False
-                running = True
+            if event.type == pg.KEYDOWN:
+                if event.key == pg.K_r:
+                    x_c, y_c = WIDTH // 2, HEIGHT - 150
+                    dx, dy = 4, -6
+                    r = 30
+                    score = 0
+                    pg.mixer.music.play(-1)
+                    lose = False
+                    running = True
 
         
         pg.draw.rect(screen, WHITE, (WIDTH // 2 - 200,
@@ -102,4 +111,4 @@ pg.quit()
 # Kolliziya s granitsami +
 # Shtuka vnizu +
 # Dvigat' shtuku vnizu +
-# Kolliziya sharika so shtukoy vnizu
+# Kolliziya sharika so shtukoy vnizu +
