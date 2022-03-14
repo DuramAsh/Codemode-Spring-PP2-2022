@@ -22,12 +22,13 @@ BLUE = (0, 0, 255)
 screen = pg.display.set_mode((WIDTH, HEIGHT))
 clock = pg.time.Clock()
 
-font = pg.font.SysFont("Times New Roman", True, 40)
+font = pg.font.SysFont("Times New Roman", 40, True)
 
 x_c, y_c = WIDTH // 2, HEIGHT - 150
 dx, dy = 4, -6
 # dx, dy = 0, 0
 r = 30
+score = 228
 
 running = True
 lose = False
@@ -75,6 +76,10 @@ while running:
                 lose = False
         pg.mixer.music.stop()
         pg.draw.rect(screen, WHITE, (WIDTH // 2 - 200, HEIGHT // 2 - 200, 400, 400))
+        text1 = font.render('GAME OVER', False, False)
+        text2 = font.render(f'Your score is: {score}', False, False)
+        screen.blit(text1, (WIDTH // 2 - 200, HEIGHT // 2 - 200))
+        screen.blit(text2, (WIDTH // 2 - 200, HEIGHT // 2 - 100))
         pg.display.flip()
     pg.display.flip()
 pg.quit()
