@@ -22,6 +22,10 @@ BLUE = (0, 0, 255)
 screen = pg.display.set_mode((WIDTH, HEIGHT))
 clock = pg.time.Clock()
 
+x, y = WIDTH // 2, HEIGHT - 100
+dx, dy = 4, -6
+r = 30
+
 running = True
 
 while running:
@@ -32,6 +36,17 @@ while running:
         
     screen.fill(WHITE)
     screen.blit(background_img, (0, 0))
+    
+    pg.draw.circle(screen, RED, (x, y), r)
+    
+    if x + r >= WIDTH or x - r <= 0:
+        dx *= -1
+    if y - r <= 0:
+        dy *= -1
+    
+    x += dx
+    y += dy
+    
     pg.display.flip()
 pg.quit()
 
