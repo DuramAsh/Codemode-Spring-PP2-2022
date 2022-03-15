@@ -1,4 +1,5 @@
 import pygame
+from random import randint
 
 pygame.init()
 
@@ -34,8 +35,10 @@ pygame.mixer.music.load("./music/back_mus.mp3")
 
 # Font
 font = pygame.font.Font("./font/bebas.ttf", 72)
-game_over = font.render("GAME OVER", True, (0, 0, 0))
-FPS = 60
+font_lil = pygame.font.Font("./font/bebas.ttf", 24)
+game_over = font.render("GAME OVER", True, BLACK)
+win_over = font.render("YOU WON!", True, BLACK)
+FPS = 40
 
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Korganoid")
@@ -63,16 +66,19 @@ while restart:
     color_value = 0
     finished = False
     lose = False
+    win = False
     rect_x, rect_y = 300, 550 
     rect_width, rect_height = 200, 20
     circ_x, circ_y = WIDTH // 2, HEIGHT // 2 + 200
     radius = 10
-    dx, dy = -2, -5
+    dx, dy = -5, -5
     control_mode = 0
     positions = find_pos()
+    SCORE = 0
+    
     while not finished:
         clock.tick(FPS)
-
+        
         m_pos = pygame.mouse.get_pos()
 
         for event in pygame.event.get():
@@ -109,8 +115,41 @@ while restart:
 
         # pygame.draw.rect(screen, WHITE, (50, 50, area[0], area[1]))
 
-        for i, j in positions:
-            pygame.draw.rect(screen, BLACK, (i, j, each_block[0], each_block[1]))
+        for x, y in positions:
+            pygame.draw.rect(screen, BLACK, (x,y, each_block[0], each_block[1]))
+
+            if (circ_y - radius) in range(y + each_block[1] - 5, y + each_block[1] + 2) and circ_x in range(x, x + each_block[0]):
+                positions.remove((x, y))
+                if dy < 0:
+                    dy = randint(5, 10)
+                else:
+                    dy = randint(-10, -4)
+                SCORE += 1
+            elif (circ_y + radius) in range(y - 1, y + 3) and circ_x in range(x, x + each_block[0]):
+                positions.remove((x, y))
+                if dy < 0:
+                    dy = randint(5, 10)
+                else:
+                    dy = randint(-10, -4)
+                SCORE += 1
+            elif circ_x - radius in range(x + each_block[0] - 4, x + each_block[0] + 2) and circ_y in range(y, y+ each_block[1]):
+                positions.remove((x, y))
+                if dx < 0:
+                    dx = randint(5, 10)
+                else:
+                    dx = randint(-10, -4)
+                SCORE += 1
+            elif circ_x + radius in range(x - 4, x + 2) and circ_y in range(y, y+ each_block[1]):
+                positions.remove((x, y))
+                if dx < 0:
+                    dx = randint(5, 10)
+                else:
+                    dx = randint(-10, -4)
+                SCORE += 1
+            
+                
+                
+
 
         pygame.draw.circle(screen, rainbow_color(color_value), (circ_x, circ_y), radius)
         color_value = (color_value + 5) % (256 * 6)
@@ -122,29 +161,47 @@ while restart:
             dx *= -1
         if circ_y <= 0:
             dy *= -1
-        if circ_bottom[1] == rect_y and circ_bottom[0] in range(rect_x - rect_width // 2, rect_x + rect_width // 2 + 1):
-            dy *= -1
+        if (circ_y + radius) in range(rect_y - 10, rect_y + 10) and circ_bottom[0] in range(rect_x - rect_width // 2, rect_x + rect_width // 2 + 1):
+            if dy < 0:
+                dy = randint(5, 10)
+            else:
+                dy = randint(-10, -4)
 
         pygame.draw.rect(
                 screen, rainbow_color(color_value), (rect_x - rect_width // 2, rect_y, rect_width, rect_height))
-    
+        
+        score_text = font_lil.render(f'Score: {SCORE}', True, WHITE)
+        screen.blit(score_text, (10, HEIGHT - 50))
+
         if circ_y > HEIGHT:
             lose = True
             pygame.mixer.music.stop()
+        if len(positions) == 0:
+            win = True
 
-        while lose:
+        while lose or win:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     restart = False
                     finished = True
                     lose = False
+                    win = False
                 if event.type == pygame.KEYDOWN and event.key == pygame.K_r:
                     finished = True
                     lose = False
+                    win = False
             pygame.draw.rect(screen, WHITE, (WIDTH // 2 - 200,
                                              HEIGHT // 2 - 200, 400, 400))
-            pos = game_over.get_rect(center=(WIDTH // 2, HEIGHT // 2))
-            screen.blit(game_over, pos)
+            if lose:
+                pos = game_over.get_rect(center=(WIDTH // 2, HEIGHT // 2))
+                screen.blit(game_over, pos)
+            elif win:
+                pos = win_over.get_rect(center=(WIDTH // 2, HEIGHT // 2))
+                screen.blit(win_over, pos)
+            
+            total_score = font.render(f"Score: {SCORE}", True, BLACK)
+            pos_2 = total_score.get_rect(center=(WIDTH // 2, HEIGHT // 2))
+            screen.blit(total_score, (pos_2[0], pos_2[1] + 80))
             pygame.display.flip()
         pygame.display.flip()
     pygame.display.flip()
