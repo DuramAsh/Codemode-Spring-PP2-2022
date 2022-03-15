@@ -2,8 +2,6 @@ import pygame
 
 pygame.init()
 
-
-
 def rainbow_color(value):
     step = (value // 256) % 6
     pos = value % 256
@@ -47,18 +45,31 @@ lose = False
 restart = True
 clock = pygame.time.Clock()
 
+# Variables
+area = (700, 300)
+each_block = (30, 15)
+
+def find_pos():
+    positions = []
+    for i in range(50, area[0] + 50, 35):
+            for j in range(50, area[1] + 50, 20):
+                positions.append((i, j))
+                # pygame.draw.rect(screen, BLACK, (i, j, each_block[0], each_block[1]))
+    return positions
 
 while restart:
     pygame.mixer.music.play(-1)
+    pygame.mouse.set_visible(0)
     color_value = 0
     finished = False
     lose = False
-    rect_x, rect_y = 300, 550
+    rect_x, rect_y = 300, 550 
     rect_width, rect_height = 200, 20
     circ_x, circ_y = WIDTH // 2, HEIGHT // 2 + 200
-    radius = 20
+    radius = 10
     dx, dy = -2, -5
     control_mode = 0
+    positions = find_pos()
     while not finished:
         clock.tick(FPS)
 
@@ -83,10 +94,24 @@ while restart:
         elif keydowns[pygame.K_RIGHT] and rect_x + rect_width // 2 < WIDTH and control_mode == 0:
             rect_x += 20
 
-        if control_mode == 1 and (m_pos[0] - rect_width // 2 > 0 and m_pos[0] + rect_width // 2 < WIDTH):
-            rect_x = m_pos[0]
+        if control_mode == 1:
+            if (m_pos[0] - rect_width // 2 > 0 and m_pos[0] + rect_width // 2 < WIDTH):
+                rect_x = m_pos[0]
+            elif pygame.mouse.get_focused() == 0:
+                if m_pos[0] < WIDTH // 2:
+                    rect_x  =  rect_width // 2
+                elif m_pos[0] > WIDTH // 2:
+                    rect_x = WIDTH - rect_width // 2
+        
+
 
         screen.blit(img, (0, 0))
+
+        # pygame.draw.rect(screen, WHITE, (50, 50, area[0], area[1]))
+
+        for i, j in positions:
+            pygame.draw.rect(screen, BLACK, (i, j, each_block[0], each_block[1]))
+
         pygame.draw.circle(screen, rainbow_color(color_value), (circ_x, circ_y), radius)
         color_value = (color_value + 5) % (256 * 6)
         circ_x += dx
