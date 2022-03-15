@@ -25,7 +25,7 @@ BLUE = (0, 0, 255)
 img = pygame.image.load("./img/background.png")
 #Music
 pygame.mixer.music.load("./music/bob.mp3")
-pygame.mixer.music.play(-1)
+# pygame.mixer.music.play(-1)
 #Font
 font = pygame.font.Font("./font/bebas.ttf", 72)
 text = font.render("GAME OVER", True, BLACK)
@@ -33,9 +33,9 @@ text = font.render("GAME OVER", True, BLACK)
 c_x, c_y  = WIDTH // 2, HEIGHT // 2 + 200
 r_x, r_y = WIDTH // 2, HEIGHT // 2 + 250
 r_width, r_height = 200, 30
-dx, dy = 5, -7
+dx, dy = 5, -5
 step = 10
-RAD = 30
+RAD = 10
 control_mode = -1
 
 while not finished:
@@ -61,21 +61,31 @@ while not finished:
             if event.key == pygame.K_c:
                 control_mode *= -1
 
-    if control_mode == -1:
-        if keydowns[pygame.K_LEFT] and r_x - r_width // 2 > 0:
-            r_x -= step
-        elif keydowns[pygame.K_RIGHT] and r_x + r_width // 2 < WIDTH:
-            r_x += step
-    elif control_mode == 1:
+    
+        
+    if control_mode == 1:
         m_pos = pygame.mouse.get_pos()
-        r_x = m_pos[0]
+        if pygame.mouse.get_focused() == 0:
+            if m_pos[0]  < WIDTH // 2:
+                r_x = r_width // 2
+            else:
+                r_x = WIDTH - r_width // 2
+        else:
+            r_x = m_pos[0]
+
+    if keydowns[pygame.K_LEFT] and r_x - r_width // 2 > 0 and control_mode == -1:
+        r_x -= step
+    elif keydowns[pygame.K_RIGHT] and r_x + r_width // 2 < WIDTH and control_mode == -1:
+        r_x += step
 
     if c_y <= 0:
         dy *= -1
     if c_x <= 0 or c_x >= WIDTH:
         dx *= -1
-    if c_pos[1] >= r_y and c_pos[0] in range(r_x - r_width // 2, r_x + r_width // 2 + 1):
+    # if c_pos[1] == r_y ----- c_pos[1] == 600 ???
+    if c_pos[1] in range(r_y, r_y + 5) and c_pos[0] in range(r_x - r_width // 2, r_x + r_width // 2 + 1):
         dy *= -1 
+        # c_pos[1] > r_y and c_pos[1] < r_y + 10
 
     c_x += dx
     c_y += dy
