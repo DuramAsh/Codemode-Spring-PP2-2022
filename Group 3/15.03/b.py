@@ -1,6 +1,5 @@
 import pygame
 from random import randint
-import time
 pygame.init()
 
 #Global Variables
@@ -31,10 +30,12 @@ pygame.mixer.music.load("./music/bob.mp3")
 
 #Font
 font = pygame.font.Font("./font/bebas.ttf", 72)
-text = font.render("GAME OVER", True, BLACK)
+lil_font = pygame.font.Font("./font/bebas.ttf", 24)
+game_over = font.render("GAME OVER", True, BLACK)
+win_over = font.render("YOU WON!", True, BLACK)
 #Variables
 area = (700, 300)
-each = (30, 15)
+each = (33, 18)
 
 def find_pos():
     positions = []
@@ -55,7 +56,9 @@ while restart:
     control_mode = -1
     finished = False
     lose = False
+    win = False
     positions = find_pos()
+    SCORE = 0
     while not finished:
         clock.tick(FPS)
         # m_pos = pygame.mouse.get_pos()
@@ -71,7 +74,34 @@ while restart:
 
         for x, y in positions:
             pygame.draw.rect(screen, BLACK, (x, y, each[0], each[1]))
-            
+            if c_y - RAD in range(y + each[1] - 3, y + each[1] + 2) and c_x in range(x, x + each[0] + 1):
+                if dy < 0:
+                    dy = randint(5, 10)
+                else:
+                    dy = randint(-10, -5)
+                positions.remove((x, y))
+                SCORE += 1
+            elif c_y + RAD in range(y - 3, y + 2) and c_x in range(x, x + each[0] + 1):
+                if dy < 0:
+                    dy = randint(5, 10)
+                else:
+                    dy = randint(-10, -5)
+                positions.remove((x, y))
+                SCORE += 1
+            elif c_x - RAD in range(x + each[0] - 3, x + each[0] + 2) and c_y in range(y, y + each[1]):
+                if dx < 0:
+                    dx = randint(5, 10)
+                else:
+                    dx = randint(-10, -5)
+                positions.remove((x, y))
+                SCORE += 1
+            elif c_x + RAD in range(x - 3, x + 2) and c_y in range(y, y + each[1]):
+                if dx < 0:
+                    dx = randint(5, 10)
+                else:
+                    dx = randint(-10, -5)
+                positions.remove((x, y))
+                SCORE += 1
 
         # screen.fill(BLACK)
         for event in pygame.event.get():
@@ -110,8 +140,11 @@ while restart:
         if c_x <= 0 or c_x >= WIDTH:
             dx *= -1
         # if c_pos[1] == r_y ----- c_pos[1] == 600 ???
-        if c_pos[1] in range(r_y, r_y + 5) and c_pos[0] in range(r_x - r_width // 2, r_x + r_width // 2 + 1):
-            dy *= -1 
+        if c_pos[1] in range(r_y - 5, r_y + 5) and c_pos[0] in range(r_x - r_width // 2, r_x + r_width // 2 + 1):
+            if dy < 0:
+                dy = randint(5, 10)
+            else:
+                dy = randint(-10, -5) 
             # c_pos[1] > r_y and c_pos[1] < r_y + 10
 
         c_x += dx
@@ -121,22 +154,40 @@ while restart:
 
         pygame.draw.rect(screen, BLUE, (r_x - r_width // 2, r_y, r_width, r_height))
         
+        score_text = lil_font.render(f'Score: {SCORE}', True, RED)
+        screen.blit(score_text, (10, HEIGHT - 50))
+
+        if len(positions) == 0:
+            win = True
+
         if c_y - RAD > HEIGHT:
             lose = True
             pygame.mixer.music.stop()
 
-        while lose:
+        while lose or win:
+            total_score = font.render(f'Score: {SCORE}', True, BLUE)
             pygame.draw.rect(screen, WHITE, (WIDTH // 2 - 250, HEIGHT // 2 - 200, 500, 400))
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     restart = False
                     finished = True
                     lose = False
+                    win = False
                 if event.type == pygame.KEYDOWN and event.key == pygame.K_r:
                     lose = False
                     finished = True
+                    win = False
 
-            screen.blit(text, (WIDTH // 2 - 100, HEIGHT // 2 - 50))
+            if lose:
+                pos = game_over.get_rect(center = (WIDTH // 2, HEIGHT // 2))
+                screen.blit(game_over, (pos[0], pos[1] - 50))
+            elif win:
+                pos = win_over.get_rect(center = (WIDTH // 2, HEIGHT // 2))
+                screen.blit(win_over, (pos[0], pos[1] - 50))
+            
+            pos_2 = total_score.get_rect(center = (WIDTH // 2, HEIGHT // 2))
+            screen.blit(total_score, (pos_2[0], pos_2[1] + 80))
+            
             
             pygame.display.flip()
 
