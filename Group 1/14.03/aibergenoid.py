@@ -42,7 +42,7 @@ while running:
         if event.type == pg.KEYDOWN:
             if event.key == pg.K_c:
                 mouse = not mouse
-                
+
 
     screen.fill(WHITE)
     screen.blit(background_img, (0, 0))
