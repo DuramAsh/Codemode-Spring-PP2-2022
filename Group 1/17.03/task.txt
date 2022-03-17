@@ -1,0 +1,17 @@
+Group 1:
+	Aibergen
+	Adema
+	Nursat
+Group 2:
+	Nurbek
+	Alikhan
+	Rakymzhan
+Group 3:
+	Amina
+	Ersultan
+	Yaslan
+	Aruzhan
+Group 4:
+	Darina
+	Danial
+	Bakytzhan
