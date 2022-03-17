@@ -25,7 +25,7 @@ clock = pg.time.Clock()
 font = pg.font.SysFont("Times New Roman", 40, True)
 
 x_c, y_c = WIDTH // 2, HEIGHT - 150
-dx, dy = 4, -6
+dx, dy = -4, -6
 r = 30
 score = 0
 x = 0
@@ -50,8 +50,8 @@ while running:
     pg.draw.circle(screen, RED, (x_c, y_c), r)
     
     keys = pg.key.get_pressed()
-    if mouse:
-        (x, y_r) = pg.mouse.get_pos()
+    # if mouse:
+    #     (x, y_r) = pg.mouse.get_pos()
         
     if keys[pg.K_LEFT]:
         x -= 3
