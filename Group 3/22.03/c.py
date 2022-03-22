@@ -12,7 +12,7 @@ class Ball(pygame.sprite.Sprite):
         self.surf = pygame.Surface((60, 60))
         self.rect = self.surf.get_rect(center=(WIDTH // 2, HEIGHT // 2))
         self.speed = 3
-        self.radius = 20
+        self.radius = 30
 
     def move(self):
         keys = pygame.key.get_pressed()
@@ -34,8 +34,8 @@ class Brick(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
         self.surf = pygame.Surface((50, 25))
-        self.rect = self.surf.get_rect((100, 100))
-
+        self.rect = self.surf.get_rect(center=(random.randint(0, WIDTH - 50), 100))
+        
     def draw(self):
         pygame.draw.rect(screen, RED, (self.rect.x, self.rect.y, 50, 25))
 
@@ -59,10 +59,10 @@ entities = pygame.sprite.Group()
 ballz = pygame.sprite.Group()
 brickz = pygame.sprite.Group()
 
-entities.add(B1)
 entities.add(Br1)
 entities.add(Br2)
 entities.add(Br3)
+entities.add(B1)
 
 ballz.add(B1)
 
@@ -79,8 +79,12 @@ while run:
     screen.fill(BLACK)
 
     for entity in entities:
-        entity.move()
         entity.draw()
+    for ball in ballz:
+        ball.move()
+        
+    if pygame.sprite.spritecollide(B1, brickz, True):
+        print("OK!")
 
     pygame.display.flip()
 pygame.quit()
