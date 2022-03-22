@@ -19,9 +19,10 @@ clock = pg.time.Clock()
 
 rect_x, rect_y = 70, 70
 dx, dy = 3, 3
-x = 729
-y = 529
+x = 300
+y = 150
 color = RED
+font = pg.font.SysFont("Times New Roman", 60, True, True) # шрифт, размер шрифта, жирный, курсив
 
 running = True
 while running:
@@ -32,18 +33,24 @@ while running:
             running = False
         if event.type == pg.KEYDOWN and event.key == pg.K_SPACE:
             color = (random.randint(0, 255), random.randint(0, 255), random.randint(0, 255))
+        # if event.type == pg.KEYDOWN and event.key == pg.K_DOWN:
+        #     y += dy
+
+    keys = pg.key.get_pressed()
+
+    if(keys[pg.K_DOWN]):
+        y += dy
+
+    if y + 70 >= HEIGHT:
+        dy = 0
 
     pg.draw.rect(screen, color, (x, y, rect_x, rect_y))
-    x += dx
-    y += dy
+    # x += dx
+    text1 = font.render('Aruzhan', True, (255, 0, 0), (0, 255, 0)) # text, сглаживание, цвет шрифта, цвет фона
 
-    if x >= WIDTH - rect_x or x <= 0:
-        dx *= -1
-        # color = (random.randint(0, 255), random.randint(0, 255), random.randint(0, 255))
+    screen.blit(text1, (100, 100))
     
-    if y >= HEIGHT - rect_y or y <= 0:
-        dy *= -1
-        # color = (random.randint(0, 255), random.randint(0, 255), random.randint(0, 255))
+
 
     pg.display.flip()
 pg.quit()
