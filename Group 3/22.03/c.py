@@ -10,9 +10,9 @@ class Ball(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
         self.surf = pygame.Surface((60, 60))
-        self.rect = self.surf.get_rect(center=(WIDTH // 2, HEIGHT // 2))
         self.speed = 3
         self.radius = 30
+        self.rect = self.surf.get_rect(center=((WIDTH // 2, HEIGHT // 2)))
 
     def move(self):
         keys = pygame.key.get_pressed()
@@ -26,18 +26,23 @@ class Ball(pygame.sprite.Sprite):
             self.rect.move_ip(0, self.speed)
 
     def draw(self):
+        # self.surf.fill(RED)
+        # screen.blit(self.surf, (self.rect.x, self.rect.y))
         pygame.draw.circle(
-            screen, WHITE, (self.rect.x, self.rect.y), self.radius)
+            screen, WHITE, (self.rect.x + self.radius, self.rect.y + self.radius), self.radius)
 
 
 class Brick(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
         self.surf = pygame.Surface((50, 25))
-        self.rect = self.surf.get_rect(center=(random.randint(0, WIDTH - 50), 100))
-        
+        self.rect = self.surf.get_rect(
+            topleft=(random.randint(0, WIDTH - 50), 100))
+
     def draw(self):
         pygame.draw.rect(screen, RED, (self.rect.x, self.rect.y, 50, 25))
+        # self.surf.fill(BLUE)
+
 
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 clock = pygame.time.Clock()
@@ -54,7 +59,7 @@ B1 = Ball()
 SCORE = 0
 entities = pygame.sprite.Group()
 ballz = pygame.sprite.Group()
-brickz = pygame.sprite.Group([Brick() for _ in range(50)])
+brickz = pygame.sprite.Group([Brick() for _ in range(5)])
 
 # entities.add(Br1)
 # entities.add(Br2)
@@ -82,7 +87,7 @@ while run:
     for ball in ballz:
         ball.draw()
         ball.move()
-        
+
     if pygame.sprite.spritecollide(B1, brickz, True):
         SCORE += 1
         print(SCORE)
