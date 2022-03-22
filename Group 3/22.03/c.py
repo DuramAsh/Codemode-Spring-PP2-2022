@@ -51,24 +51,21 @@ BLUE = (0, 0, 255)
 
 
 B1 = Ball()
-Br1 = Brick()
-Br2 = Brick()
-Br3 = Brick()
-
+SCORE = 0
 entities = pygame.sprite.Group()
 ballz = pygame.sprite.Group()
-brickz = pygame.sprite.Group()
+brickz = pygame.sprite.Group([Brick() for _ in range(50)])
 
-entities.add(Br1)
-entities.add(Br2)
-entities.add(Br3)
+# entities.add(Br1)
+# entities.add(Br2)
+# entities.add(Br3)
 entities.add(B1)
 
 ballz.add(B1)
 
-brickz.add(Br1)
-brickz.add(Br2)
-brickz.add(Br3)
+# brickz.add(Br1)
+# brickz.add(Br2)
+# brickz.add(Br3)
 
 while run:
     clock.tick(FPS)
@@ -78,13 +75,17 @@ while run:
 
     screen.fill(BLACK)
 
-    for entity in entities:
-        entity.draw()
+    # for entity in entities:
+    #     entity.draw()
+    for brick in brickz:
+        brick.draw()
     for ball in ballz:
+        ball.draw()
         ball.move()
         
     if pygame.sprite.spritecollide(B1, brickz, True):
-        print("OK!")
+        SCORE += 1
+        print(SCORE)
 
     pygame.display.flip()
 pygame.quit()
