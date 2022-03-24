@@ -54,6 +54,7 @@ class Rectangle(pg.sprite.Sprite):
         self.surf.fill(self.color)
 
 
+
 class Circle(pg.sprite.Sprite):
     def __init__(self, x, y):
         super().__init__()
@@ -75,11 +76,11 @@ class Circle(pg.sprite.Sprite):
 r1 = Rectangle(400, 300, RED)
 c1 = Circle(random.randint(100, 700), random.randint(100, 500))
 # r2 = Rectangle(600, 400, (0, 255, 0))
-sprites = pg.sprite.Group()
+sprites = pg.sprite.Group([r1, c1])
 enemy = pg.sprite.Group([c1])
 
-sprites.add(r1)
-sprites.add(c1)
+# sprites.add(r1)
+# sprites.add(c1)
 # sprites.add(r2)
 
 running = True
@@ -96,7 +97,8 @@ while running:
     
     for i in enemy:
         screen.blit(i.surf, i.rect)
-        
+
+
 
     # if pg.sprite.collide_rect(r1, c1):
     #     r1.change_color()
@@ -107,6 +109,9 @@ while running:
         if pg.sprite.collide_rect(r1, i):
             i.kill()
             enemy.add(Circle(random.randint(100, 700), random.randint(100, 500)))
+
+    # if pg.sprite.spritecollideany(r1, enemy):
+
 
 
     pg.display.update()
