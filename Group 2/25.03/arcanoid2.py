@@ -1,5 +1,6 @@
 import pygame as pg
 import random
+import json
 
 pg.init()
 pg.mixer.init()
@@ -14,6 +15,10 @@ GREEN = (0, 255, 0)
 BLUE = (0, 0, 255)
 
 ZHANTORE = pg.image.load("zhantore.png")
+FONT = pg.font.SysFont("Times New Roman", 20, True)
+SCORE = 0
+HIGHSCORE = 0
+DICT = {}
 
 LOCATIONS = {
     30:  [60, 120, 180, 240, 300, 360, 420, 480, 540, 600, 660, 720],
@@ -111,9 +116,19 @@ for y, i in LOCATIONS.items():
 
 running = True
 while running:
+    with open("savefile.json", "r") as f:
+        DICT = json.loads(f.read())
     clock.tick(FPS)
     for event in pg.event.get():
         if event.type == pg.QUIT:
+            # with open("savefile.json", "r") as f:
+            #     global d
+            #     d = json.loads(f.read())
+            # with open("savefile.json", "w") as f:
+            #     if SCORE > d['highscore']:
+            #         d['highscore'] = SCORE
+            #     l = json.dumps(d, indent=4)
+            #     f.write(l)
             running = False
     screen.fill(WHITE)
 
@@ -132,7 +147,17 @@ while running:
         if pg.sprite.collide_rect(ball, e):
             e.kill()
             ball.dy *= -1
+            SCORE += 1
             pg.mixer.Sound("ya.mp3").play()
+            with open("savefile.json", "w") as f:
+                if SCORE > DICT['highscore']:
+                    DICT['highscore'] = SCORE
+                l = json.dumps(DICT, indent=4)
+                f.write(l)
+
+    screen.blit(FONT.render(f"Score: {SCORE}", False, False), (0, 250))
+    screen.blit(FONT.render(
+        f"Highscore: {DICT['highscore']}", False, False), (0, 150))
 
     pg.display.update()
 pg.quit()
