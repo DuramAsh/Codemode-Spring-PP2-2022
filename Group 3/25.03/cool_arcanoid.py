@@ -47,6 +47,7 @@ while restart:
                     finished = True
 
 
+            pygame.display.flip()
         pygame.display.flip()
     pygame.display.flip()
 pygame.quit()
