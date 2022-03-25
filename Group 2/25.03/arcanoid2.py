@@ -12,6 +12,8 @@ RED = (255, 0, 0)
 GREEN = (0, 255, 0)
 BLUE = (0, 0, 255)
 
+ZHANTORE = pg.image.load("zhantore.png")
+
 LOCATIONS = {
     30:  [60, 120, 180, 240, 300, 360, 420, 480, 540, 600, 660, 720],
     70: [60, 120, 180, 240, 300, 360, 420, 480, 540, 600, 660, 720],
@@ -44,6 +46,9 @@ class Line(pg.sprite.Sprite):
         if self.rect.right < WIDTH:
             if keys[pg.K_RIGHT]:
                 self.rect.move_ip(5, 0)
+    
+    def draw(self):
+        screen.blit(self.surf, self.rect)
 
 
 class Ball(pg.sprite.Sprite):
@@ -54,13 +59,15 @@ class Ball(pg.sprite.Sprite):
         self.y = random.randint(400, 500)
         self.dx = 4
         self.dy = -4
+        self.angle = 0
         self.init_ball()
 
     def init_ball(self):
         self.surf = pg.Surface((self.r * 2, self.r * 2), pg.SRCALPHA)
 
         self.rect = self.surf.get_rect(center=(self.x, self.y))
-        pg.draw.circle(self.surf, RED, (self.r, self.r), self.r)
+        # pg.draw.circle(self.surf, RED, (self.r, self.r), self.r)
+        self.surf.blit(ZHANTORE, (0, 0))
 
     def move(self):
         global WIDTH, HEIGHT
@@ -72,6 +79,11 @@ class Ball(pg.sprite.Sprite):
         self.x += self.dx
         self.y += self.dy
         self.init_ball()
+        
+    def draw(self):
+        self.angle += 1
+        self.surf = pg.transform.rotate(self.surf, self.angle % 360)
+        screen.blit(self.surf, self.rect)
 
 
 class Enemy(pg.sprite.Sprite):
@@ -105,7 +117,7 @@ while running:
     screen.fill(WHITE)
 
     for i in sprites:
-        screen.blit(i.surf, i.rect)
+        i.draw()
         i.move()
 
     for i in enemies:
