@@ -1,6 +1,31 @@
 import pygame
 pygame.init()
 
+
+class Ball(pygame.sprite.Sprite):
+    def __init__(self):
+        pass
+    def draw(self):
+        pass
+    def move(self):
+        pass
+
+class Player(pygame.sprite.Sprite):
+    def __init__(self):
+        pass
+    def draw(self):
+        pass
+    def move(self):
+        pass
+
+class Brick(pygame.sprite.Sprite):
+    def __init__(self):
+        pass
+    def draw(self):
+        pass
+
+
+
 WIDTH, HEIGHT = 800, 600
 FPS = 45
 
