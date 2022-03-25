@@ -88,7 +88,7 @@ class Ball(pg.sprite.Sprite):
 
     def draw(self):
         self.angle += 1
-        self.surf = pg.transform.rotate(self.surf, self.angle % 360)
+        # self.surf = pg.transform.rotate(self.surf, self.angle % 360)
         screen.blit(self.surf, self.rect)
 
 
@@ -138,33 +138,29 @@ while running:
 
     for i in enemies:
         screen.blit(i.surf, i.rect)
+        # elif ball.rect.right > e.rect.right:
 
     if pg.sprite.collide_rect(line, ball):
         ball.dy *= -1
         # pg.mixer.Sound("ya.mp3").play()
 
-    for e in enemies:
-        # if pg.sprite.collide_rect(ball, e):
-        if e.rect.bottom == ball.rect.top or e.rect.top == ball.rect.bottom:
-            ball.dy *= -1
-            e.kill()
-            SCORE += 1
-            pg.mixer.Sound("ya.mp3").play()
-            with open("savefile.json", "w") as f:
-                if SCORE > DICT['highscore']:
-                    DICT['highscore'] = SCORE
-                l = json.dumps(DICT, indent=4)
-                f.write(l)
-        elif e.rect.left == ball.rect.right or e.rect.right == ball.rect.left:
-            ball.dx *= -1
-            e.kill()
-            SCORE += 1
-            pg.mixer.Sound("ya.mp3").play()
-            with open("savefile.json", "w") as f:
-                if SCORE > DICT['highscore']:
-                    DICT['highscore'] = SCORE
-                l = json.dumps(DICT, indent=4)
-                f.write(l)
+    collisions = pg.sprite.spritecollide(ball, enemies, False)
+    for e in collisions:
+        e.kill()
+        # if ball.rect.top < e.rect.top:
+        #     ball.dx *= -1
+        # elif ball.rect.bottom > e.rect.bottom:
+        #     ball.dx *= -1
+        # elif ball.rect.left < e.rect.left:
+        # ball.dy *= -1
+        #     ball.dy *= -1
+        SCORE += 1
+        pg.mixer.Sound("ya.mp3").play()
+        with open("savefile.json", "w") as f:
+            if SCORE > DICT['highscore']:
+                DICT['highscore'] = SCORE
+            l = json.dumps(DICT, indent=4)
+            f.write(l)
 
     screen.blit(FONT.render(f"Score: {SCORE}", False, False), (0, 250))
     screen.blit(FONT.render(
