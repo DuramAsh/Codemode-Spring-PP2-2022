@@ -147,6 +147,7 @@ while running:
     collisions = pg.sprite.spritecollide(ball, enemies, False)
     for e in collisions:
         e.kill()
+        ball.dy *= -1
         # if ball.rect.top < e.rect.top:
         #     ball.dx *= -1
         # elif ball.rect.bottom > e.rect.bottom:
