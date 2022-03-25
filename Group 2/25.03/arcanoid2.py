@@ -2,6 +2,7 @@ import pygame as pg
 import random
 
 pg.init()
+pg.mixer.init()
 
 WIDTH = 800
 HEIGHT = 600
@@ -46,7 +47,7 @@ class Line(pg.sprite.Sprite):
         if self.rect.right < WIDTH:
             if keys[pg.K_RIGHT]:
                 self.rect.move_ip(5, 0)
-    
+
     def draw(self):
         screen.blit(self.surf, self.rect)
 
@@ -79,7 +80,7 @@ class Ball(pg.sprite.Sprite):
         self.x += self.dx
         self.y += self.dy
         self.init_ball()
-        
+
     def draw(self):
         self.angle += 1
         self.surf = pg.transform.rotate(self.surf, self.angle % 360)
@@ -125,11 +126,13 @@ while running:
 
     if pg.sprite.collide_rect(line, ball):
         ball.dy *= -1
+        pg.mixer.Sound("ya.mp3").play()
 
     for e in enemies:
         if pg.sprite.collide_rect(ball, e):
             e.kill()
             ball.dy *= -1
+            pg.mixer.Sound("ya.mp3").play()
 
     pg.display.update()
 pg.quit()
