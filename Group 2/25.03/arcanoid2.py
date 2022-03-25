@@ -141,12 +141,23 @@ while running:
 
     if pg.sprite.collide_rect(line, ball):
         ball.dy *= -1
-        pg.mixer.Sound("ya.mp3").play()
+        # pg.mixer.Sound("ya.mp3").play()
 
     for e in enemies:
-        if pg.sprite.collide_rect(ball, e):
-            e.kill()
+        # if pg.sprite.collide_rect(ball, e):
+        if e.rect.bottom == ball.rect.top or e.rect.top == ball.rect.bottom:
             ball.dy *= -1
+            e.kill()
+            SCORE += 1
+            pg.mixer.Sound("ya.mp3").play()
+            with open("savefile.json", "w") as f:
+                if SCORE > DICT['highscore']:
+                    DICT['highscore'] = SCORE
+                l = json.dumps(DICT, indent=4)
+                f.write(l)
+        elif e.rect.left == ball.rect.right or e.rect.right == ball.rect.left:
+            ball.dx *= -1
+            e.kill()
             SCORE += 1
             pg.mixer.Sound("ya.mp3").play()
             with open("savefile.json", "w") as f:
