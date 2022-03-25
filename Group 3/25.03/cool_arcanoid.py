@@ -80,8 +80,8 @@ class Brick(pygame.sprite.Sprite):
         self.color = color
         self.surf = pygame.Surface((each[0], each[1]))
         self.rect = self.surf.get_rect(center = (self.x, self.y))
+        self.surf.fill(self.color)
     def draw(self):
-        pygame.draw.rect(self.surf, self.color, self.rect)
         screen.blit(self.surf, self.rect)
 
 
@@ -128,7 +128,16 @@ while restart:
         if pygame.sprite.collide_rect(ball, player):
             ball.dy *= -1 
         
-        
+        for i in pygame.sprite.spritecollide(ball, brickz, False):
+
+            if ball.rect.right == i.rect.left or ball.rect.left == i.rect.right:
+                ball.dx *= -1
+                
+
+            # i.kill()
+            # ball.dy *= -1
+            
+
 
 
         while lose or win:
