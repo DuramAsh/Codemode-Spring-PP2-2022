@@ -74,10 +74,15 @@ class Player(pygame.sprite.Sprite):
 
 
 class Brick(pygame.sprite.Sprite):
-    def __init__(self):
-        pass
+    def __init__(self, x, y, color):
+        super().__init__()
+        self.x, self.y = x, y
+        self.color = color
+        self.surf = pygame.Surface((each[0], each[1]))
+        self.rect = self.surf.get_rect(center = (self.x, self.y))
     def draw(self):
-        pass
+        pygame.draw.rect(self.surf, self.color, self.rect)
+        screen.blit(self.surf, self.rect)
 
 
 
@@ -91,6 +96,11 @@ while restart:
     player = Player(WIDTH // 2, 500, 10, 200, 30, BLUE)
 
     entities = pygame.sprite.Group()
+    brickz = pygame.sprite.Group()
+
+    for x, y in find_pos():
+        brickz.add(Brick(x, y, GREEN))
+
     entities.add(player)
     entities.add(ball)
 
@@ -108,6 +118,10 @@ while restart:
         for each in entities:
             each.draw()
             each.move()
+
+        for each in brickz:
+            each.draw()
+
         
 
        
