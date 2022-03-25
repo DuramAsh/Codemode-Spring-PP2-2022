@@ -21,6 +21,17 @@ restart = True
 
 ZHANTORE = pygame.image.load("./img/zhantore.png")
 
+area = (700, 300)
+each = (33, 18)
+
+def find_pos():
+    positions = []
+    for i in range(50, area[0] + 50, 35):
+            for j in range(50, area[1] + 50, 20):
+                # pygame.draw.rect(screen, BLACK, (i, j, each[0], each[1]))
+                positions.append((i, j))
+    return positions
+
 class Ball(pygame.sprite.Sprite):
     def __init__(self, x, y, rad, color = RED):
         super().__init__()
