@@ -22,12 +22,12 @@ restart = True
 ZHANTORE = pygame.image.load("./img/zhantore.png")
 
 area = (700, 300)
-each = (33, 18)
+each = (60, 30)
 
 def find_pos():
     positions = []
-    for i in range(50, area[0] + 50, 35):
-            for j in range(50, area[1] + 50, 20):
+    for i in range(50, area[0] + 50, 70):
+            for j in range(50, area[1] + 50, 40):
                 # pygame.draw.rect(screen, BLACK, (i, j, each[0], each[1]))
                 positions.append((i, j))
     return positions
@@ -128,15 +128,24 @@ while restart:
         if pygame.sprite.collide_rect(ball, player):
             ball.dy *= -1 
         
-        for i in pygame.sprite.spritecollide(ball, brickz, False):
+        # for i in pygame.sprite.spritecollide(ball, brickz, False):
 
-            if ball.rect.right == i.rect.left or ball.rect.left == i.rect.right:
-                ball.dx *= -1
-                
+        #     if i.rect.left or i.rect.topleft or i.rect.bottomleft:
+        #         ball.dx *= -1
+        #     elif i.rect.right or i.rect.topright or i.rect.bottomright:
+        #         ball.dx *= -1
+        #     elif i.rect.topleft or i.rect.top or i.rect.topright:
+        #         ball.dy *= -1
+        #     elif i.rect.bottomleft or i.rect.bottom or i.rect.bottomright:
+        #         ball.dy *= -1
 
-            # i.kill()
+        #     i.kill()
             # ball.dy *= -1
-            
+        
+        for each in brickz:
+            if ball.rect.colliderect(each.rect):
+                ball.dy *= -1
+                each.kill()
 
 
 
