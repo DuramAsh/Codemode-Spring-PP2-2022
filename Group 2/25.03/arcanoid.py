@@ -4,7 +4,7 @@ import pygame as pg
 # add collisions with PLayer, with walls
 # add game over
 # EXTRA:
-# make bricks going down 
+# make bricks going down
 # change direction of ball depending on collision side
 
 WIDTH = 800
@@ -73,7 +73,7 @@ class Brick(pg.sprite.Sprite):
         self.y = y
         self.surf = pg.Surface((40, 30))
         self.rect = self.surf.get_rect(center=(self.x, self.y))
-    
+
     def draw(self):
         screen.blit(self.surf, self.rect)
 
@@ -84,7 +84,7 @@ entities = pg.sprite.Group([P1, B1])
 enemies = pg.sprite.Group()
 for y, i in LOCATIONS.items():
     for j in i:
-        enemies.add(Brick(j, y)) 
+        enemies.add(Brick(j, y))
 
 while running:
     clock.tick(FPS)
@@ -96,14 +96,12 @@ while running:
     for entity in entities:
         entity.draw()
         entity.move()
-    
+
     for enemy in enemies:
         enemy.draw()
         if pg.sprite.collide_rect(B1, enemy):
             enemy.kill()
             # change direction of ball
-
-    
 
     pg.display.flip()
 pg.quit()
