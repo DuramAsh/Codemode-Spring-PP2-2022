@@ -41,17 +41,20 @@ class Line(pg.sprite.Sprite):
         self.surf = pg.Surface((self.width, self.height))
         self.surf.fill(GREEN)
         self.rect = self.surf.get_rect(center=(self.x, self.y))
+        self.speed = 0
 
     def move(self):
         # global WIDTH
         keys = pg.key.get_pressed()
-
+        self.speed = 0
         if self.rect.left > 0:
             if keys[pg.K_LEFT]:
-                self.rect.move_ip(-5, 0)
+                self.speed = -5
+                self.rect.move_ip(self.speed, 0)
         if self.rect.right < WIDTH:
             if keys[pg.K_RIGHT]:
-                self.rect.move_ip(5, 0)
+                self.speed = 5
+                self.rect.move_ip(self.speed, 0)
 
     def draw(self):
         screen.blit(self.surf, self.rect)
@@ -141,7 +144,9 @@ while running:
         # elif ball.rect.right > e.rect.right:
 
     if pg.sprite.collide_rect(line, ball):
+        ball.dy += 1
         ball.dy *= -1
+        ball.dx += line.speed
         # pg.mixer.Sound("ya.mp3").play()
 
     collisions = pg.sprite.spritecollide(ball, enemies, False)
@@ -155,7 +160,7 @@ while running:
         # elif ball.rect.left < e.rect.left:
         # ball.dy *= -1
         #     ball.dy *= -1
-        SCORE += 1
+        SCORE += int((ball.dx ** 2 + ball.dy ** 2) ** 0.5)
         pg.mixer.Sound("ya.mp3").play()
         with open("savefile.json", "w") as f:
             if SCORE > DICT['highscore']:
