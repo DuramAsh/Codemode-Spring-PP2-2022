@@ -123,6 +123,9 @@ while running:
     for i in all_sprites:
         i.draw()
         i.move()
+
+    for f in food_sprites:
+        
     
 
     pg.display.flip()
