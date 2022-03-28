@@ -28,10 +28,11 @@ class Hero(pg.sprite.Sprite):
         self.y = y
         self.surf = pg.Surface((self.x, self.y))
         self.rect = self.surf.get_rect(center=(self.x, self.y))
-        self.image = pg.image.load("new_rocket.png")
+        self.image = pg.image.load("roocket.png")
     
     def move(self):
         keys = pg.key.get_pressed()
+        
         if keys[pg.K_LEFT]:
             if self.rect.right <= 0:
                 self.rect.left = WIDTH
@@ -60,12 +61,15 @@ class Enemy(pg.sprite.Sprite):
         super().__init__()
         self.img = pg.image.load("ico256.png")
         self.x = randint(0, WIDTH)
-        self.y = 0
-        self.speed = 3
+        self.y = randint(0, 300) * -1
+        # self.y = 0
+        self.speed = 2
         self.surf = pg.Surface((20, 20))
         self.rect = self.surf.get_rect(center=(self.x, self.y))
     
     def move(self):
+        if self.rect.bottom >= HEIGHT:
+            self.rect = self.surf.get_rect(center=(randint(0, WIDTH), 0)) 
         self.rect.move_ip(0, self.speed)
 
     def draw(self):
@@ -82,21 +86,28 @@ class Eda(pg.sprite.Sprite):
         self.rect = self.surf.get_rect(center=(self.x, self.y)) 
 
     def draw(self): 
-        screen.blit(self.im, self.rect) 
+        self.surf.blit(self.im, (0, 0))
+        screen.blit(self.surf, self.rect) 
         
 
     def move(self): 
+        if self.rect.top <= 0:
+            self.rect = self.surf.get_rect(center=(randint(0, WIDTH), HEIGHT)) 
+
         self.rect.move_ip(0, -2) 
 
 
+
 player = Hero(WIDTH // 2, HEIGHT // 2 + 300)
+foods = [Eda(randint(0, WIDTH), randint(HEIGHT, HEIGHT * 2)) for i in range(20)]
+# foods = [Eda(randint(0, WIDTH), HEIGHT) for i in range(20)]
+enemies = [Enemy() for i in range(10)]
 
-all_sprites = pg.sprite.Group([player])
-food_sprites = pg.sprite.Group()
-enemy_sprites = pg.sprite.Group()
 
-for i in range(10):
-    
+all_sprites = pg.sprite.Group([player] + foods + enemies)
+food_sprites = pg.sprite.Group(foods)
+enemy_sprites = pg.sprite.Group(enemies)
+
 
 
 running = True
@@ -107,7 +118,7 @@ while running:
             running = False
     screen.blit(bg, (0, 0))
 
-    for i in sprites:
+    for i in all_sprites:
         i.draw()
         i.move()
     
