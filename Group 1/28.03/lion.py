@@ -26,32 +26,34 @@ class Hero(pg.sprite.Sprite):
         self.height = 20
         self.x = x
         self.y = y
+        self.speed = 5
         self.surf = pg.Surface((self.x, self.y))
         self.rect = self.surf.get_rect(center=(self.x, self.y))
         self.image = pg.image.load("roocket.png")
     
     def move(self):
         keys = pg.key.get_pressed()
+
+        # if self.rect.top <= 0:
+        #     self.rect.top = 0
+        # if self.rect.bottom >= HEIGHT:
+        #     self.rect.bottom = HEIGHT
+        # if self.rect.left <= 0:
+        #     self.rect.left = 0
+        # if self.rect.right >= WIDTH:
+        #     self.rect.right = WIDTH
+
         
         if keys[pg.K_LEFT]:
-            if self.rect.right <= 0:
-                self.rect.left = WIDTH
-            self.rect.move_ip(-5, 0)
-
+            self.rect.move_ip(-self.speed, 0)
         if keys[pg.K_RIGHT]:
-            if self.rect.left >= WIDTH:
-                self.rect.right = 0
-            self.rect.move_ip(5, 0)
-
-        if keys[pg.K_DOWN]:
-            if self.rect.top >= HEIGHT:
-                self.rect.bottom = 0
-            self.rect.move_ip(0, 5)
-
+            self.rect.move_ip(self.speed, 0)
+        
         if keys[pg.K_UP]:
-            if self.rect.bottom <= 0:
-                self.rect.top = HEIGHT
-            self.rect.move_ip(0, -5)
+            self.rect.move_ip(0, -self.speed)
+        if keys[pg.K_DOWN]:
+            self.rect.move_ip( 0,  self.speed)
+        
     def draw(self):
         screen.blit(self.image, self.rect)
 
