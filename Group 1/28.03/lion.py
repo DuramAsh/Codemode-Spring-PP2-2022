@@ -111,6 +111,7 @@ all_sprites = pg.sprite.Group([player] + foods + enemies)
 food_sprites = pg.sprite.Group(foods)
 enemy_sprites = pg.sprite.Group(enemies)
 score = 0
+timer = 0
 
 
 running = True
@@ -119,11 +120,31 @@ while running:
     for event in pg.event.get():
         if event.type == pg.QUIT:
             running = False
+        if event.type == pg.KEYDOWN:
+            if event.key == pg.K_SPACE:
+                player.speed += 2
+            if event.key == pg.K_b:
+                en = [Enemy() for i in range(2)]
+                enemy_sprites.add(en)
+                all_sprites.add(en)
+            if event.key == pg.K_f:
+                FPS = 30
+                timer = 100
+                
+
     screen.blit(bg, (0, 0))
+
+    if timer == 0:
+        FPS = 60
+    else:
+        timer -= 1
 
     font = pg.font.SysFont('verdana', 35)
     scores = font.render(str(score), True, WHITE)
     screen.blit(scores, (10, 10))
+
+    time = font.render(str(timer), True, WHITE)
+    screen.blit(time, (10, 50))
 
     for i in all_sprites:
         i.draw()
