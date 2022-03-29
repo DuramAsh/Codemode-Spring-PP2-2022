@@ -124,7 +124,6 @@ while restart:
 
         
 
-       
         if pygame.sprite.collide_rect(ball, player):
             ball.dy *= -1 
         
