@@ -56,7 +56,7 @@ class Snake:
             pg.draw.rect(screen, self.color, (part[0], part[1], 40, 40))
 
     def eat(self, food_x, food_y):
-        if self.body[0][0] == food_x + 20 and self.body[0][1] == food_y + 20:
+        if self.body[0][0] == food_x - 20 and self.body[0][1] == food_y - 20:
             self.grow()
             self.score += 5
             return True
