@@ -2,7 +2,7 @@ import pygame as pg
 
 WIDTH = 800
 HEIGHT = 600
-FPS = 60
+FPS = 24
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
 GREEN = (0, 255, 0)
@@ -20,6 +20,21 @@ class Snake:
         self.dy = 0
 
     def move(self):
+        
+        keys = pg.key.get_pressed()
+        if keys[pg.K_a]:
+            self.dx = -5
+            self.dy = 0
+        if keys[pg.K_d]:
+            self.dx = 5
+            self.dy = 0
+        if keys[pg.K_w]:
+            self.dy = -5
+            self.dx = 0
+        if keys[pg.K_s]:
+            self.dy = 5
+            self.dx = 0
+        
         for part in range(self.length - 1, 0, -1):
             self.body[part][0] = self.body[part - 1][0]
             self.body[part][1] = self.body[part - 1][1]
@@ -47,9 +62,9 @@ while running:
         if event.type == pg.QUIT:
             running = False
 
+    screen.fill(WHITE)
     S1.draw()
     S1.move()
 
-    screen.fill(WHITE)
     pg.display.flip()
 pg.quit()
