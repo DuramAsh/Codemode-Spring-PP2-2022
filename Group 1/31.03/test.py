@@ -3,7 +3,7 @@ from random import randint
 
 WIDTH = 800
 HEIGHT = 800
-FPS = 10
+FPS = 3
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
 GREEN = (0, 255, 0)
@@ -17,7 +17,8 @@ class Snake:
         self.color = RED
         self.score = 0
         self.body = [[80, 80]]
-        self.dx = 10
+        self.speed = 40
+        self.dx = self.speed
         self.dy = 0
 
     def move(self):
@@ -25,19 +26,19 @@ class Snake:
         keys = pg.key.get_pressed()
         if keys[pg.K_a]:
             if self.body[0][1] % 40 == 0:
-                self.dx = -10
+                self.dx = -self.speed
                 self.dy = 0
         if keys[pg.K_d]:
             if self.body[0][1] % 40 == 0:
-                self.dx = 10
+                self.dx = self.speed
                 self.dy = 0
         if keys[pg.K_w]:
             if self.body[0][0] % 40 == 0:
-                self.dy = -10
+                self.dy = -self.speed
                 self.dx = 0
         if keys[pg.K_s]:
             if self.body[0][0] % 40 == 0:
-                self.dy = 10
+                self.dy = self.speed
                 self.dx = 0
 
         for part in range(self.length - 1, 0, -1):
@@ -49,7 +50,7 @@ class Snake:
 
     def draw(self):
         for part in self.body:
-            pg.draw.rect(screen, self.color, (part[0], part[1], 40, 40))
+            pg.draw.rect(screen, self.color, (part[0], part[1], 40, 40), 5)
             
     def eat(self, food):
         if self.body[0][0] == food.x and self.body[0][1] == food.y:
