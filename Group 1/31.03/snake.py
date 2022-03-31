@@ -3,7 +3,7 @@ from random import randint
 
 WIDTH = 800
 HEIGHT = 800
-FPS = 24
+FPS = 30
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
 GREEN = (0, 255, 0)
@@ -16,25 +16,33 @@ class Snake:
         self.length = 1
         self.color = RED
         self.score = 0
-        self.body = [[100, 100]]
-        self.dx = 5
+        self.body = [[80, 80]]
+        self.dx = 10
         self.dy = 0
+
+    def grow(self):
+        self.length += 1
+        self.body.append(1000, 1000)
 
     def move(self):
 
         keys = pg.key.get_pressed()
         if keys[pg.K_a]:
-            self.dx = -5
-            self.dy = 0
+            if self.body[0][1] % 40 == 0:
+                self.dx = -10
+                self.dy = 0
         if keys[pg.K_d]:
-            self.dx = 5
-            self.dy = 0
+            if self.body[0][1] % 40 == 0:
+                self.dx = 10
+                self.dy = 0
         if keys[pg.K_w]:
-            self.dy = -5
-            self.dx = 0
+            if self.body[0][0] % 40 == 0:
+                self.dy = -10
+                self.dx = 0
         if keys[pg.K_s]:
-            self.dy = 5
-            self.dx = 0
+            if self.body[0][0] % 40 == 0:
+                self.dy = 10
+                self.dx = 0
 
         for part in range(self.length - 1, 0, -1):
             self.body[part][0] = self.body[part - 1][0]
@@ -47,14 +55,32 @@ class Snake:
         for part in self.body:
             pg.draw.rect(screen, self.color, (part[0], part[1], 40, 40))
 
+    def eat(self, food_x, food_y):
+        if self.body[0][0] == food_x + 20 and self.body[0][1] == food_y + 20:
+            self.grow()
+            self.score += 5
+            return True
+        return False
+
 
 class Food:
     def __init__(self):
-        self.x = randint(0, WIDTH)
-        self.y = randint(0, HEIGHT)
-    
+        self.x = randint(0, WIDTH) % 20 * 40
+        self.y = randint(0, HEIGHT) % 20 * 40
+        self.r = 20
+
     def draw(self):
-        pg.draw.circle(screen, GREEN, (self.x, self.y), 20)
+        pg.draw.circle(
+            screen, GREEN, (self.x + self.r, self.y + self.r), self.r)
+
+    def gen(self):
+        self.x = randint(0, WIDTH) % 20 * 40
+        self.y = randint(0, HEIGHT) % 20 * 40
+
+    def eaten(self, snake):
+        if snake.eat(self.x, self.y) == True:
+            self.gen()
+            snake.grow()
 
 
 pg.init()
