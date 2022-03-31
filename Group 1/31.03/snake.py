@@ -25,21 +25,17 @@ class Snake:
 
         keys = pg.key.get_pressed()
         if keys[pg.K_a] and self.dx == 0:
-            if self.body[0][1] % 40 == 0:
-                self.dx = -self.speed
-                self.dy = 0
+            self.dx = -self.speed
+            self.dy = 0
         if keys[pg.K_d] and self.dx == 0:
-            if self.body[0][1] % 40 == 0:
-                self.dx = self.speed
-                self.dy = 0
+            self.dx = self.speed
+            self.dy = 0
         if keys[pg.K_w] and self.dy == 0:
-            if self.body[0][0] % 40 == 0:
-                self.dy = -self.speed
-                self.dx = 0
+            self.dy = -self.speed
+            self.dx = 0
         if keys[pg.K_s] and self.dy == 0:
-            if self.body[0][0] % 40 == 0:
-                self.dy = self.speed
-                self.dx = 0
+            self.dy = self.speed
+            self.dx = 0
 
         for part in range(self.length - 1, 0, -1):
             self.body[part][0] = self.body[part - 1][0]
