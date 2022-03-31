@@ -1,0 +1,13 @@
+###################
+i - row
+j - column
+for i in range()
+    for j in range()
+        screen.blit(wall, (i * wall_width, j * wall_height))
+
+
+
+with open(f'level{on_which_level}.txt', 'r')
+    for i in range()
+        for j in range()
+            screen.blit(wall, (i * wall_width, j * wall_height))
