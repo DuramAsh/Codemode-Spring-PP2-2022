@@ -3,7 +3,7 @@ from random import randint
 
 WIDTH = 800
 HEIGHT = 800
-FPS = 3
+FPS = 5
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
 GREEN = (0, 255, 0)
@@ -24,19 +24,19 @@ class Snake:
     def move(self):
 
         keys = pg.key.get_pressed()
-        if keys[pg.K_a]:
+        if keys[pg.K_a] and self.dx == 0:
             if self.body[0][1] % 40 == 0:
                 self.dx = -self.speed
                 self.dy = 0
-        if keys[pg.K_d]:
+        if keys[pg.K_d] and self.dx == 0:
             if self.body[0][1] % 40 == 0:
                 self.dx = self.speed
                 self.dy = 0
-        if keys[pg.K_w]:
+        if keys[pg.K_w] and self.dy == 0:
             if self.body[0][0] % 40 == 0:
                 self.dy = -self.speed
                 self.dx = 0
-        if keys[pg.K_s]:
+        if keys[pg.K_s] and self.dy == 0:
             if self.body[0][0] % 40 == 0:
                 self.dy = self.speed
                 self.dx = 0
@@ -58,6 +58,10 @@ class Snake:
             self.body.append([1000, 1000])
             self.score += 5
             food.gen()
+    
+    def collision(self):
+        if self.body[0] in self.body[1:]:
+            print("DEATH")
 
 
 class Food:
@@ -94,6 +98,7 @@ while running:
     screen.fill(WHITE)
     S1.draw()
     S1.move()
+    S1.collision()
     F1.draw()
     S1.eat(F1)
 
