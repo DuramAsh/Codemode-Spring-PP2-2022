@@ -2,7 +2,7 @@ import pygame as pg
 from random import randint
 
 WIDTH = 800
-HEIGHT = 800
+HEIGHT = 600
 FPS = 30
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
@@ -19,12 +19,16 @@ class Snake:
         self.body = [[80, 80]]
         self.dx = 10
         self.dy = 0
+        self.is_add = False
 
     def grow(self):
         self.length += 1
-        self.body.append(1000, 1000)
+        self.is_add = False
+        self.body.append([1000, 1000])
 
     def move(self):
+        if self.is_add:
+            self.add_to_snake()
 
         keys = pg.key.get_pressed()
         if keys[pg.K_a]:
@@ -56,9 +60,10 @@ class Snake:
             pg.draw.rect(screen, self.color, (part[0], part[1], 40, 40))
 
     def eat(self, food_x, food_y):
-        if self.body[0][0] == food_x + 20 and self.body[0][1] == food_y + 20:
-            self.grow()
-            self.score += 5
+        x = self.body[0][0]
+        y = self.body[0][1]
+
+        if x == food_x + 20 and y == food_y + 20:
             return True
         return False
 
@@ -77,10 +82,7 @@ class Food:
         self.x = randint(0, WIDTH) % 20 * 40
         self.y = randint(0, HEIGHT) % 20 * 40
 
-    def eaten(self, snake):
-        if snake.eat(self.x, self.y) == True:
-            self.gen()
-            snake.grow()
+    
 
 
 pg.init()
@@ -98,6 +100,14 @@ while running:
     for event in pg.event.get():
         if event.type == pg.QUIT:
             running = False
+        if event.type == pg.KEYDOWN:
+            if event.key == pg.K_SPACE:
+                S1.grow() 
+
+    if F1.eaten(S1):
+        print("done")
+        S1.is_add = True
+        F1.gen()
 
     screen.fill(WHITE)
     S1.draw()
