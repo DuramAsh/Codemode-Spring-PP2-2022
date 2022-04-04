@@ -56,6 +56,28 @@ def rectangle(screen, start, end, d, color):
             pygame.draw.rect(screen, color, (x2, y2, width, height), d)
 
 
+
+def circle(screen, start, end, d, color):
+    x1 = start[0]
+    y1 = start[1]
+    x2 = end[0]
+    y2 = end[1]
+
+    width = abs(x1-x2)
+    height = abs(y1-y2)
+
+    if x1 <= x2:
+        if y1 < y2:
+            pygame.draw.ellipse(screen, color, (x1, y1, width, height), d)
+        else:
+            pygame.draw.ellipse(screen, color, (x1, y2, width, height), d)
+    else:
+        if y1 < y2:
+            pygame.draw.ellipse(screen, color, (x2, y1, width, height), d)
+        else:
+            pygame.draw.ellipse(screen, color, (x2, y2, width, height), d)
+
+
 last_pos = (0, 0)
 d = 2
 draw_line = False
@@ -71,7 +93,8 @@ while running:
         if event.type == pygame.MOUSEBUTTONDOWN:
             last_pos = pos
         if event.type == pygame.MOUSEBUTTONUP:
-            rectangle(screen, last_pos, pos, d, (255, 0, 0))
+            # rectangle(screen, last_pos, pos, d, (255, 0, 0))
+            circle(screen, last_pos, pos, d, (255, 0, 0))
         
             # if event.type == pygame.MOUSEBUTTONDOWN:
             #     last_pos = pos
