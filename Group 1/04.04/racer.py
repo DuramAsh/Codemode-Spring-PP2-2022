@@ -36,7 +36,7 @@ class Player(pg.sprite.Sprite):
             self.rect.move_ip(self.speed, 0)
     
     def draw(self):
-        self.surf.blit(self.image, (0, 0))
+        self.surf.blit(pg.transform.scale(self.image, (40, 60)), (0, 0))
         screen.blit(self.surf, (self.rect.x, self.rect.y))
 
 
@@ -46,21 +46,39 @@ class Enemy(pg.sprite.Sprite):
         self.image = pg.image.load(r'./images/enemy.png')
         self.surf = pg.Surface((40, 60))
         self.rect = self.surf.get_rect(center=(random.randint(0, WIDTH - 40), -100))
-        self.speed = 5
+        self.speed = random.randint(3, 5)
     
     def move(self):
         self.rect.move_ip(0, self.speed)
     
     def draw(self):
-        self.surf.blit(self.image, (0, 0))
+        self.surf.blit(pg.transform.scale(self.image, (40, 60)), (0, 0))
         screen.blit(self.surf, (self.rect.x, self.rect.y))
+
+    def ubivat(self):
+        if self.rect.top > HEIGHT:
+            self.kill()
+            print(f"KILLED: {self}")
 
 
 class Coin(pg.sprite.Sprite):
-    pass
+    def __init__(self):
+        super().__init__()
+        self.image = pg.image.load(r'./images/coin.jpg')
+        self.surf = pg.Surface((20, 20))
+        self.rect = self.surf.get_rect(center=(random.randint(0, WIDTH - 40), -100))
+        self.speed = random.randint(1, 8)
+    
+    def move(self):
+        self.rect.move_ip(0, self.speed)
+    
+    def draw(self):
+        self.surf.blit(pg.transform.scale(self.image, (20, 20)), (0, 0))
+        screen.blit(self.surf, (self.rect.x, self.rect.y))
 
 P1 = Player()
 enemies = pg.sprite.Group([Enemy() for _ in range (3)])
+coins = pg.sprite.Group([Coin() for _ in range (5)])
 
 running = True
 while running:
@@ -76,8 +94,13 @@ while running:
     for enemy in enemies:
         enemy.draw()
         enemy.move()
+        enemy.ubivat()
+    
+    for coin in coins:
+        coin.draw()
+        coin.move()
 
-    if pg.sprite.spritecollide(P1, enemies):
+    if pg.sprite.spritecollide(P1, enemies, False):
         running = False
 
     pg.display.update()
