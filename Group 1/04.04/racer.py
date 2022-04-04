@@ -9,6 +9,7 @@ WHITE = (255, 255, 255)
 RED = (255, 0, 0)
 GREEN = (0, 255, 0)
 BLUE = (0, 0, 255)
+score = 0
 
 pg.init()
 screen = pg.display.set_mode((WIDTH, HEIGHT))
@@ -58,7 +59,6 @@ class Enemy(pg.sprite.Sprite):
     def ubivat(self):
         if self.rect.top > HEIGHT:
             self.kill()
-            print(f"KILLED: {self}")
 
 
 class Coin(pg.sprite.Sprite):
@@ -75,6 +75,10 @@ class Coin(pg.sprite.Sprite):
     def draw(self):
         self.surf.blit(pg.transform.scale(self.image, (20, 20)), (0, 0))
         screen.blit(self.surf, (self.rect.x, self.rect.y))
+
+    def ubivat(self):
+        if self.rect.top > HEIGHT:
+            self.kill()
 
 P1 = Player()
 enemies = pg.sprite.Group([Enemy() for _ in range (3)])
@@ -99,9 +103,19 @@ while running:
     for coin in coins:
         coin.draw()
         coin.move()
+        coin.ubivat()
+
+    if enemies.__len__() < 3:
+        enemies.add(Enemy())
+    
+    if coins.__len__() < 5:
+        coins.add(Coin())
 
     if pg.sprite.spritecollide(P1, enemies, False):
         running = False
-
+    
+    if pg.sprite.spritecollide(P1, coins, True):
+        score += 1
+    print(score)
     pg.display.update()
 pg.quit()    
