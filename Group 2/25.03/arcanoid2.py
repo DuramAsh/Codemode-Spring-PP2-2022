@@ -91,7 +91,7 @@ class Ball(pg.sprite.Sprite):
 
     def draw(self):
         self.angle += 1
-        # self.surf = pg.transform.rotate(self.surf, self.angle % 360)
+        self.surf = pg.transform.rotate(self.surf, self.angle % 360)
         screen.blit(self.surf, self.rect)
 
 
