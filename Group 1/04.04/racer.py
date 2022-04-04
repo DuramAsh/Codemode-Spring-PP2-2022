@@ -1,5 +1,5 @@
 import pygame as pg
-from random import *
+from random
 
 WIDTH = 800
 HEIGHT = 600
@@ -41,13 +41,26 @@ class Player(pg.sprite.Sprite):
 
 
 class Enemy(pg.sprite.Sprite):
-    pass
+    def __init__(self):
+        super().__init__()
+        self.image = pg.image.load(r'./images/enemy.png')
+        self.surf = pg.Surface((40, 60))
+        self.rect = self.surf.get_rect(center=(random.randint(0, WIDTH - 40), -100))
+        self.speed = 5
+    
+    def move(self):
+        self.rect.move_ip(0, self.speed)
+    
+    def draw(self):
+        self.surf.blit(self.image, (0, 0))
+        screen.blit(self.surf, (self.rect.x, self.rect.y))
 
 
 class Coin(pg.sprite.Sprite):
     pass
 
 P1 = Player()
+enemies = pg.sprite.Group([Enemy() for _ in range (3)])
 
 running = True
 while running:
@@ -60,6 +73,12 @@ while running:
 
     P1.draw()
     P1.move()
+    for enemy in enemies:
+        enemy.draw()
+        enemy.move()
+
+    if pg.sprite.spritecollide(P1, enemies):
+        running = False
 
     pg.display.update()
 pg.quit()    
