@@ -11,15 +11,19 @@ RED = (255, 0, 0)
 GREEN = (0, 255, 0)
 BLUE = (0, 0, 255)
 score = 0
-highscore = 0
 d = {}
+d['highscore'] = -1
 
 pg.init()
 screen = pg.display.set_mode((WIDTH, HEIGHT))
 clock = pg.time.Clock()
 pg.display.set_caption("Nura v Aktobe")
-with open('save.json', 'r') as f:
-    d = json.loads(f.read())
+
+try:
+    with open('save.json', 'r') as f:
+        d = json.loads(f.read())
+except Exception as e:
+    print(str(e))
 
 
 class Player(pg.sprite.Sprite):
@@ -121,14 +125,16 @@ while running:
 
     if pg.sprite.spritecollide(P1, enemies, False):
         running = False
-        with open('save.json', 'w') as f:
-            f.write(json.dumps(d, indent=4))
-
+        try:
+            with open('save.json', 'w') as f:
+                f.write(json.dumps(d, indent=4))
+        except Exception as e:
+            print(str(e))
     if pg.sprite.spritecollide(P1, coins, True):
         score += 1
 
     if score > d['highscore']:
         d['highscore'] = score
-    print(score, d['highscore'])
+    # print(score, d['highscore'])
     pg.display.update()
 pg.quit()
