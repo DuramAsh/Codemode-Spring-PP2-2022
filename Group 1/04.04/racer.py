@@ -125,11 +125,9 @@ while running:
 
     if pg.sprite.spritecollide(P1, enemies, False):
         running = False
-        try:
-            with open('save.json', 'w') as f:
-                f.write(json.dumps(d, indent=4))
-        except Exception as e:
-            print(str(e))
+        with open('save.json', 'w') as f:
+            f.write(json.dumps(d, indent=4))
+
     if pg.sprite.spritecollide(P1, coins, True):
         score += 1
 
