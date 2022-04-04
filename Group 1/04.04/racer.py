@@ -1,5 +1,6 @@
 import pygame as pg
 import random
+import json
 
 WIDTH = 800
 HEIGHT = 600
@@ -10,11 +11,15 @@ RED = (255, 0, 0)
 GREEN = (0, 255, 0)
 BLUE = (0, 0, 255)
 score = 0
+highscore = 0
+d = {}
 
 pg.init()
 screen = pg.display.set_mode((WIDTH, HEIGHT))
 clock = pg.time.Clock()
-pg.display.set_caption("Hungry Lion")
+pg.display.set_caption("Nura v Aktobe")
+with open('save.json', 'r') as f:
+    d = json.loads(f.read())
 
 
 class Player(pg.sprite.Sprite):
@@ -24,7 +29,7 @@ class Player(pg.sprite.Sprite):
         self.surf = pg.Surface((40, 60))
         self.rect = self.surf.get_rect(center=(400, 500))
         self.speed = 5
-    
+
     def move(self):
         keys = pg.key.get_pressed()
         if keys[pg.K_i] and self.rect.top > 0:
@@ -35,7 +40,7 @@ class Player(pg.sprite.Sprite):
             self.rect.move_ip(-self.speed, 0)
         if keys[pg.K_l] and self.rect.right < WIDTH:
             self.rect.move_ip(self.speed, 0)
-    
+
     def draw(self):
         self.surf.blit(pg.transform.scale(self.image, (40, 60)), (0, 0))
         screen.blit(self.surf, (self.rect.x, self.rect.y))
@@ -46,12 +51,13 @@ class Enemy(pg.sprite.Sprite):
         super().__init__()
         self.image = pg.image.load(r'./images/enemy.png')
         self.surf = pg.Surface((40, 60))
-        self.rect = self.surf.get_rect(center=(random.randint(0, WIDTH - 40), -100))
+        self.rect = self.surf.get_rect(
+            center=(random.randint(0, WIDTH - 40), -100))
         self.speed = random.randint(3, 5)
-    
+
     def move(self):
         self.rect.move_ip(0, self.speed)
-    
+
     def draw(self):
         self.surf.blit(pg.transform.scale(self.image, (40, 60)), (0, 0))
         screen.blit(self.surf, (self.rect.x, self.rect.y))
@@ -66,12 +72,13 @@ class Coin(pg.sprite.Sprite):
         super().__init__()
         self.image = pg.image.load(r'./images/coin.jpg')
         self.surf = pg.Surface((20, 20))
-        self.rect = self.surf.get_rect(center=(random.randint(0, WIDTH - 40), -100))
+        self.rect = self.surf.get_rect(
+            center=(random.randint(0, WIDTH - 40), -100))
         self.speed = random.randint(1, 8)
-    
+
     def move(self):
         self.rect.move_ip(0, self.speed)
-    
+
     def draw(self):
         self.surf.blit(pg.transform.scale(self.image, (20, 20)), (0, 0))
         screen.blit(self.surf, (self.rect.x, self.rect.y))
@@ -80,9 +87,10 @@ class Coin(pg.sprite.Sprite):
         if self.rect.top > HEIGHT:
             self.kill()
 
+
 P1 = Player()
-enemies = pg.sprite.Group([Enemy() for _ in range (3)])
-coins = pg.sprite.Group([Coin() for _ in range (5)])
+enemies = pg.sprite.Group([Enemy() for _ in range(3)])
+coins = pg.sprite.Group([Coin() for _ in range(5)])
 
 running = True
 while running:
@@ -99,7 +107,7 @@ while running:
         enemy.draw()
         enemy.move()
         enemy.ubivat()
-    
+
     for coin in coins:
         coin.draw()
         coin.move()
@@ -107,15 +115,20 @@ while running:
 
     if enemies.__len__() < 3:
         enemies.add(Enemy())
-    
+
     if coins.__len__() < 5:
         coins.add(Coin())
 
     if pg.sprite.spritecollide(P1, enemies, False):
         running = False
-    
+        with open('save.json', 'w') as f:
+            f.write(json.dumps(d, indent=4))
+
     if pg.sprite.spritecollide(P1, coins, True):
         score += 1
-    print(score)
+
+    if score > d['highscore']:
+        d['highscore'] = score
+    print(score, d['highscore'])
     pg.display.update()
-pg.quit()    
+pg.quit()
