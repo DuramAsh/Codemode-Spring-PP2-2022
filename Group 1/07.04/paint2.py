@@ -1,9 +1,48 @@
 import pygame
 
+WHITE = (255, 255, 255)
+RED = (255, 0, 0)
+GREEN = (0, 255, 0)
+BLUE = (0, 0, 255)
+PURPLE = (122, 239, 173)
+BROWN = (102, 51, 0)
+BLACK = (0, 0, 0)
+BACKGROUND = (122, 239, 173)
+
 pygame.init()
 screen = pygame.display.set_mode((800, 600))
-screen.fill((255, 255, 255))
-# screen.fill((0, 0, 0))
+
+surf = pygame.Surface((700, 600))
+buttons = pygame.Surface((100, 600))
+
+commands = {
+    'line': ([4, 4, 44, 44], True),
+    'rect': ([52, 4, 44, 44], False),
+    'circle': ([4,50, 44, 44], False),
+    'eraser': ([52, 50, 44, 44], False)
+}
+
+def set_surf():
+    surf.fill(BACKGROUND)
+    
+    buttons.fill(WHITE)
+    pygame.draw.rect(buttons, BLACK, (2, 2, 96, 596), 1)
+    
+    for i in commands:
+        pygame.draw.rect(buttons, BLACK, commands[i][0], 1)
+    
+    pygame.draw.aaline(buttons, BLACK, (8, 8), (40, 40), 1)
+    pygame.draw.rect(buttons, BLACK, (58, 10, 32, 32), 1)
+    pygame.draw.circle(buttons, BLACK, (27, 70), 15, 1)
+
+    pygame.draw.rect(buttons, BACKGROUND, (56, 58, 36, 28))
+    
+    
+    
+    
+    screen.blit(surf, (0, 0))
+    screen.blit(buttons, (700, 0))
+    
 
 
 def line(screen, start, end, d, color):
@@ -89,80 +128,84 @@ d = {
     'line' : True,
     'rect': False,
     'circle': False,
-    'erase': False
+    'eraser': False
 }
 
+set_surf()
 running = True
 while running:
     pos = pygame.mouse.get_pos()
-    rec_pos = pygame.mouse.get_pos()
+    
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
-        if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_l:
-                d['line'] = True
-                for k, v in d.items():
-                    if k != 'line':
-                        d[k] = False
-            if event.key == pygame.K_r:
-                d['rect'] = True
-                for k, v in d.items():
-                    if k != 'rect':
-                        d[k] = False
-            if event.key == pygame.K_c:
-                d['circle'] = True
-                for k, v in d.items():
-                    if k != 'circle':
-                        d[k] = False
-            if event.key == pygame.K_e:
-                d['erase'] = True
-                for k, v in d.items():
-                    if k != 'erase':
-                        d[k] = False
+            
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            for k, v in commands.items():
+                if v[0][0] <= pos[0]-700 <= v[0][0] + v[2][0] and v[1][0] <= pos[1][0] <= v[1][0] + v[3][0]:
+                    d[k] = True
+                    
+                    for i, j in d.items():
+                        if i != k:
+                            d[i] = False
+        # if event.type == pygame.KEYDOWN:
+        #     if event.key == pygame.K_l:
+        #         d['line'] = True
+        #         for k, v in d.items():
+        #             if k != 'line':
+        #                 d[k] = False
+        #     if event.key == pygame.K_r:
+        #         d['rect'] = True
+        #         for k, v in d.items():
+        #             if k != 'rect':
+        #                 d[k] = False
+        #     if event.key == pygame.K_c:
+        #         d['circle'] = True
+        #         for k, v in d.items():
+        #             if k != 'circle':
+        #                 d[k] = False
+        #     if event.key == pygame.K_e:
+        #         d['erase'] = True
+        #         for k, v in d.items():
+        #             if k != 'erase':
+        #                 d[k] = False
 
                     
         if d['line'] == 1:
             if event.type == pygame.MOUSEBUTTONDOWN:
                 last_pos = pos
-                pygame.draw.circle(screen, (0, 0, 0), pos, w)
+                pygame.draw.circle(surf, (0, 0, 0), pos, w)
                 draw_line = True
             if event.type == pygame.MOUSEBUTTONUP:
                 draw_line = False
             if event.type == pygame.MOUSEMOTION:
                 if draw_line:
-                    line(screen, last_pos, pos, w, (0, 0, 0))
+                    line(surf, last_pos, pos, w, (0, 0, 0))
                 last_pos = pos
         elif d['rect'] == 1:
-            # last_pos = pos
             if event.type == pygame.MOUSEBUTTONDOWN:
                 last_pos = pos
-            if event.type == pygame.MOUSEMOTION:
-                surf = pygame.Surface((abs(pos[0] - last_pos[0]), abs(pos[1] - last_pos[1])))
-                # surf.fill((0, 255, 0))
-                rectangle(surf,last_pos, pos, w, (255, 0, 0))
-                screen.blit(surf, last_pos)
             if event.type == pygame.MOUSEBUTTONUP:
-                rectangle(screen, last_pos, pos, w, (255, 0, 0))
-                # circle(screen, last_pos, pos, d, (255, 0, 0))
+                rectangle(surf, last_pos, pos, w, (255, 0, 0))
         elif d['circle'] == 1:
             if event.type == pygame.MOUSEBUTTONDOWN:
                 last_pos = pos
             if event.type == pygame.MOUSEBUTTONUP:
                 # rectangle(screen, last_pos, pos, d, (255, 0, 0))
-                circle(screen, last_pos, pos, w, (255, 0, 0))
-        elif d['erase'] == 1:
+                circle(surf, last_pos, pos, w, (255, 0, 0))
+        elif d['eraser'] == 1:
             if event.type == pygame.MOUSEBUTTONDOWN:
                 (x, y) = pos
-                pygame.draw.rect(screen, (255, 255, 255), (x, y, ed, ed))
+                pygame.draw.rect(surf, BACKGROUND, (x, y, ed, ed))
                 erase = True
             if event.type == pygame.MOUSEMOTION:
                 if erase:
-                    pygame.draw.rect(screen, (255, 255, 255), (pos[0], pos[1], ed, ed))
+                    pygame.draw.rect(surf, BACKGROUND, (pos[0], pos[1], ed, ed))
             if event.type == pygame.MOUSEBUTTONUP:
                 erase = False
-
-
+                
+    screen.blit(surf, (0, 0))
+    
         
 
     pygame.display.update()
