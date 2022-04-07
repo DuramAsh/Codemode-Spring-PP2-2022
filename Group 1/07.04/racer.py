@@ -13,6 +13,8 @@ BLUE = (0, 0, 255)
 score = 0
 d = {}
 d['highscore'] = -1
+y = 0
+ry = 2
 
 MEGA_COIN = pg.USEREVENT + 1
 FREEZE = pg.USEREVENT + 2
@@ -25,6 +27,8 @@ pg.display.set_caption("Nura v Aktobe")
 
 font = pg.font.SysFont('Times New Roman', 40)
 pg.time.set_timer(FLIP, 150)
+
+road = pg.image.load('./images/road.png')
 
 try:
     with open('save.json', 'r') as f:
@@ -143,6 +147,10 @@ while running:
                 coin.animate()
 
     screen.fill(WHITE)
+    screen.blit(pg.transform.scale(road, (WIDTH, HEIGHT)), (0, y % HEIGHT))
+    screen.blit(pg.transform.scale(road, (WIDTH, HEIGHT)), (0, -HEIGHT + (y % HEIGHT)))
+
+    y += ry
 
     P1.draw()
     P1.move()
