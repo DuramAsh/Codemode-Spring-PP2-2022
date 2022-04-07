@@ -14,6 +14,9 @@ score = 0
 d = {}
 d['highscore'] = -1
 
+MEGA_COIN = pg.USEREVENT + 1
+FREEZE = pg.USEREVENT + 2
+
 pg.init()
 screen = pg.display.set_mode((WIDTH, HEIGHT))
 clock = pg.time.Clock()
