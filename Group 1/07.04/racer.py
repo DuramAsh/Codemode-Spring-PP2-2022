@@ -22,6 +22,8 @@ screen = pg.display.set_mode((WIDTH, HEIGHT))
 clock = pg.time.Clock()
 pg.display.set_caption("Nura v Aktobe")
 
+font = pg.font.SysFont('Times New Roman', 40)
+
 try:
     with open('save.json', 'r') as f:
         d = json.loads(f.read())
@@ -98,15 +100,14 @@ class Coin(pg.sprite.Sprite):
             self.kill()
 
     def mega_coin(self):
-        if self.random_number == 7:
+        if self.random_number in [0, 1, 2]:
             self.image = self.images[1]
-            self.speed = 15
-            
+            # self.speed = 15
         else:
             self.image = self.images[0]
     
     def is_mega_coin(self):
-        return self.random_number == 7
+        return self.random_number in [0, 1, 2]
 
 
 P1 = Player()
@@ -120,7 +121,7 @@ while running:
         if event.type == pg.QUIT:
             running = False
         if event.type == MEGA_COIN:
-            score += 5
+            P1.speed = 30
 
     screen.fill(WHITE)
 
@@ -147,11 +148,17 @@ while running:
         with open('save.json', 'w') as f:
             f.write(json.dumps(d, indent=4))
 
-    if pg.sprite.spritecollide(P1, coins, True):
+    for coin in pg.sprite.spritecollide(P1, coins, True):
         score += 1
+        if coin.is_mega_coin():
+            score += 100
+            pg.time.set_timer(MEGA_COIN, 5000, loops=False)
 
     if score > d['highscore']:
         d['highscore'] = score
-    # print(score, d['highscore'])
+        
+    text = font.render(f"{score}", True, BLACK)
+    screen.blit(text, (20, 20))
+        
     pg.display.update()
 pg.quit()
