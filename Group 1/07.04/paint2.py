@@ -16,10 +16,10 @@ surf = pygame.Surface((700, 600))
 buttons = pygame.Surface((100, 600))
 
 commands = {
-    'line': ([4, 4, 44, 44], True),
-    'rect': ([52, 4, 44, 44], False),
-    'circle': ([4,50, 44, 44], False),
-    'eraser': ([52, 50, 44, 44], False)
+    'line': [[4, 4, 44, 44], True],
+    'rect': [[52, 4, 44, 44], False],
+    'circle': [[4,50, 44, 44], False],
+    'eraser': [[52, 50, 44, 44], False]
 }
 
 def set_surf():
@@ -142,12 +142,22 @@ while running:
             
         if event.type == pygame.MOUSEBUTTONDOWN:
             for k, v in commands.items():
-                if v[0][0] <= pos[0]-700 <= v[0][0] + v[2][0] and v[1][0] <= pos[1][0] <= v[1][0] + v[3][0]:
+                if v[0][0] <= pos[0]-700 <= v[0][0] + v[0][2] and v[0][1] <= pos[1] <= v[0][1] + v[0][3]:
                     d[k] = True
-                    
                     for i, j in d.items():
                         if i != k:
                             d[i] = False
+                            commands[k][1] = False
+                    commands[k][1] = True
+                    break
+        
+        
+        for k, v in commands.items():
+            if v[1] == True:
+                pygame.draw.rect(buttons, PURPLE, v[0], 1)
+            else:
+                pygame.draw.rect(buttons, BLACK, v[0], 1)
+                                    
         # if event.type == pygame.KEYDOWN:
         #     if event.key == pygame.K_l:
         #         d['line'] = True
@@ -205,6 +215,7 @@ while running:
                 erase = False
                 
     screen.blit(surf, (0, 0))
+    screen.blit(buttons, (700, 0))
     
         
 
