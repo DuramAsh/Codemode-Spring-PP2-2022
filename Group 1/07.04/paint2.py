@@ -38,8 +38,6 @@ def set_surf():
     pygame.draw.rect(buttons, BACKGROUND, (56, 58, 36, 28))
     
     
-    
-    
     screen.blit(surf, (0, 0))
     screen.blit(buttons, (700, 0))
     
@@ -148,7 +146,8 @@ while running:
                         if i != k:
                             d[i] = False
                             commands[k][1] = False
-                    commands[k][1] = True
+                        else:
+                            commands[k][1] = True
                     break
         
         
