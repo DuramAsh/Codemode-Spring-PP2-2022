@@ -2,8 +2,8 @@ import pygame
 
 pygame.init()
 screen = pygame.display.set_mode((800, 600))
-# screen.fill((255, 255, 255))
-screen.fill((0, 0, 0))
+screen.fill((255, 255, 255))
+# screen.fill((0, 0, 0))
 
 
 def line(screen, start, end, d, color):
@@ -95,6 +95,7 @@ d = {
 running = True
 while running:
     pos = pygame.mouse.get_pos()
+    rec_pos = pygame.mouse.get_pos()
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
@@ -133,8 +134,14 @@ while running:
                     line(screen, last_pos, pos, w, (0, 0, 0))
                 last_pos = pos
         elif d['rect'] == 1:
+            # last_pos = pos
             if event.type == pygame.MOUSEBUTTONDOWN:
                 last_pos = pos
+            if event.type == pygame.MOUSEMOTION:
+                surf = pygame.Surface((abs(pos[0] - last_pos[0]), abs(pos[1] - last_pos[1])))
+                # surf.fill((0, 255, 0))
+                rectangle(surf,last_pos, pos, w, (255, 0, 0))
+                screen.blit(surf, last_pos)
             if event.type == pygame.MOUSEBUTTONUP:
                 rectangle(screen, last_pos, pos, w, (255, 0, 0))
                 # circle(screen, last_pos, pos, d, (255, 0, 0))
@@ -156,8 +163,6 @@ while running:
                 erase = False
 
 
-
-            
         
 
     pygame.display.update()
