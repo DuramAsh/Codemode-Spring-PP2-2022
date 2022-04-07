@@ -16,10 +16,10 @@ surf = pygame.Surface((700, 600))
 buttons = pygame.Surface((100, 600))
 
 commands = {
-    'line': [[4, 4, 44, 44], True],
-    'rect': [[52, 4, 44, 44], False],
-    'circle': [[4,50, 44, 44], False],
-    'eraser': [[52, 50, 44, 44], False]
+    'line': [4, 4, 44, 44],
+    'rect': [52, 4, 44, 44],
+    'circle': [4,50, 44, 44],
+    'eraser': [52, 50, 44, 44]
 }
 
 def set_surf():
@@ -29,7 +29,7 @@ def set_surf():
     pygame.draw.rect(buttons, BLACK, (2, 2, 96, 596), 1)
     
     for i in commands:
-        pygame.draw.rect(buttons, BLACK, commands[i][0], 1)
+        pygame.draw.rect(buttons, BLACK, commands[i], 1)
     
     pygame.draw.aaline(buttons, BLACK, (8, 8), (40, 40), 1)
     pygame.draw.rect(buttons, BLACK, (58, 10, 32, 32), 1)
@@ -140,45 +140,14 @@ while running:
             
         if event.type == pygame.MOUSEBUTTONDOWN:
             for k, v in commands.items():
-                if v[0][0] <= pos[0]-700 <= v[0][0] + v[0][2] and v[0][1] <= pos[1] <= v[0][1] + v[0][3]:
+                if v[0] <= pos[0]-700 <= v[0] + v[2] and v[1] <= pos[1] <= v[1] + v[3]:
                     d[k] = True
                     for i, j in d.items():
                         if i != k:
                             d[i] = False
-                            commands[k][1] = False
-                        else:
-                            commands[k][1] = True
                     break
         
-        
-        for k, v in commands.items():
-            if v[1] == True:
-                pygame.draw.rect(buttons, PURPLE, v[0], 1)
-            else:
-                pygame.draw.rect(buttons, BLACK, v[0], 1)
-                                    
-        # if event.type == pygame.KEYDOWN:
-        #     if event.key == pygame.K_l:
-        #         d['line'] = True
-        #         for k, v in d.items():
-        #             if k != 'line':
-        #                 d[k] = False
-        #     if event.key == pygame.K_r:
-        #         d['rect'] = True
-        #         for k, v in d.items():
-        #             if k != 'rect':
-        #                 d[k] = False
-        #     if event.key == pygame.K_c:
-        #         d['circle'] = True
-        #         for k, v in d.items():
-        #             if k != 'circle':
-        #                 d[k] = False
-        #     if event.key == pygame.K_e:
-        #         d['erase'] = True
-        #         for k, v in d.items():
-        #             if k != 'erase':
-        #                 d[k] = False
-
+    
                     
         if d['line'] == 1:
             if event.type == pygame.MOUSEBUTTONDOWN:
@@ -212,9 +181,16 @@ while running:
                     pygame.draw.rect(surf, BACKGROUND, (pos[0], pos[1], ed, ed))
             if event.type == pygame.MOUSEBUTTONUP:
                 erase = False
-                
-    screen.blit(surf, (0, 0))
+    
+    for k, v in d.items():
+        if v == True:
+            pygame.draw.rect(buttons, RED, commands[k], 1)
+        else:
+            pygame.draw.rect(buttons, BLACK, commands[k], 1)
+            
+    
     screen.blit(buttons, (700, 0))
+    screen.blit(surf, (0, 0))
     
         
 
