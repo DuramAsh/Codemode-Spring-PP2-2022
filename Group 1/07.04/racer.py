@@ -77,11 +77,14 @@ class Enemy(pg.sprite.Sprite):
 class Coin(pg.sprite.Sprite):
     def __init__(self):
         super().__init__()
-        self.image = pg.image.load(r'./images/coin.jpg')
         self.surf = pg.Surface((20, 20))
         self.rect = self.surf.get_rect(
             center=(random.randint(0, WIDTH - 40), -100))
         self.speed = random.randint(1, 8)
+        self.random_number = random.randint(0, 9)
+        self.images = [pg.image.load(
+            r'./images/coin1.jpg'), pg.image.load(r'./images/coin2.png')]
+        self.mega_coin()
 
     def move(self):
         self.rect.move_ip(0, self.speed)
@@ -94,6 +97,17 @@ class Coin(pg.sprite.Sprite):
         if self.rect.top > HEIGHT:
             self.kill()
 
+    def mega_coin(self):
+        if self.random_number == 7:
+            self.image = self.images[1]
+            self.speed = 15
+            
+        else:
+            self.image = self.images[0]
+    
+    def is_mega_coin(self):
+        return self.random_number == 7
+
 
 P1 = Player()
 enemies = pg.sprite.Group([Enemy() for _ in range(3)])
@@ -105,6 +119,8 @@ while running:
     for event in pg.event.get():
         if event.type == pg.QUIT:
             running = False
+        if event.type == MEGA_COIN:
+            score += 5
 
     screen.fill(WHITE)
 
