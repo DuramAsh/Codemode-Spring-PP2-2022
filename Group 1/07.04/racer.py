@@ -16,6 +16,7 @@ d['highscore'] = -1
 
 MEGA_COIN = pg.USEREVENT + 1
 FREEZE = pg.USEREVENT + 2
+FLIP = pg.USEREVENT + 3
 
 pg.init()
 screen = pg.display.set_mode((WIDTH, HEIGHT))
@@ -23,6 +24,7 @@ clock = pg.time.Clock()
 pg.display.set_caption("Nura v Aktobe")
 
 font = pg.font.SysFont('Times New Roman', 40)
+pg.time.set_timer(FLIP, 150)
 
 try:
     with open('save.json', 'r') as f:
@@ -83,6 +85,7 @@ class Coin(pg.sprite.Sprite):
         self.rect = self.surf.get_rect(
             center=(random.randint(0, WIDTH - 40), -100))
         self.speed = random.randint(1, 8)
+        self.animation_index = 0
         self.random_number = random.randint(0, 9)
         self.images = [
             './coin_images/c1.png',
@@ -103,8 +106,10 @@ class Coin(pg.sprite.Sprite):
         screen.blit(self.surf, (self.rect.x, self.rect.y))
 
     def animate(self):
-        for image in self.images:
-            self.image = pg.image.load(image)
+        self.animation_index += 1
+        if self.animation_index >= len(self.images):
+            self.animation_index = 0
+        self.image = pg.image.load(self.images[self.animation_index])
 
     def ubivat(self):
         if self.rect.top > HEIGHT:
@@ -112,13 +117,13 @@ class Coin(pg.sprite.Sprite):
 
     def mega_coin(self):
         if self.random_number in [0, 1, 2]:
-            self.image = self.images[1]
+            self.image = pg.image.load(self.images[1])
             # self.speed = 15
         else:
-            self.image = self.images[0]
+            self.image = pg.image.load(self.images[0])
 
     def is_mega_coin(self):
-        return self.random_number in [0, 1, 2]
+        return self.random_number == 10
 
 
 P1 = Player()
@@ -131,8 +136,11 @@ while running:
     for event in pg.event.get():
         if event.type == pg.QUIT:
             running = False
-        if event.type == MEGA_COIN:
-            P1.speed = 30
+        # if event.type == MEGA_COIN:
+        #     P1.speed = 30
+        if event.type == FLIP:
+            for coin in coins:
+                coin.animate()
 
     screen.fill(WHITE)
 
@@ -146,7 +154,7 @@ while running:
     for coin in coins:
         coin.draw()
         coin.move()
-        coin.animate()
+        # coin.animate()
         coin.ubivat()
 
     if enemies.__len__() < 3:
