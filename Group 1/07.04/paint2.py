@@ -131,12 +131,18 @@ d = {
 
 set_surf()
 running = True
+score = 0
 while running:
     pos = pygame.mouse.get_pos()
     
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
+            
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_SPACE:
+                pygame.image.save(surf, f'./image_{score}.jpg')
+                score += 1
             
         if event.type == pygame.MOUSEBUTTONDOWN:
             for k, v in commands.items():
@@ -181,6 +187,8 @@ while running:
                     pygame.draw.rect(surf, BACKGROUND, (pos[0], pos[1], ed, ed))
             if event.type == pygame.MOUSEBUTTONUP:
                 erase = False
+    
+    
     
     for k, v in d.items():
         if v == True:
