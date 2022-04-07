@@ -84,8 +84,15 @@ class Coin(pg.sprite.Sprite):
             center=(random.randint(0, WIDTH - 40), -100))
         self.speed = random.randint(1, 8)
         self.random_number = random.randint(0, 9)
-        self.images = [pg.image.load(
-            r'./images/coin1.jpg'), pg.image.load(r'./images/coin2.png')]
+        self.images = [
+            './coin_images/c1.png',
+            './coin_images/c2.png',
+            './coin_images/c3.png',
+            './coin_images/c4.png',
+            './coin_images/c5.png',
+            './coin_images/c6.png'
+        ]
+        self.image = pg.image.load(self.images[0])
         self.mega_coin()
 
     def move(self):
@@ -94,6 +101,10 @@ class Coin(pg.sprite.Sprite):
     def draw(self):
         self.surf.blit(pg.transform.scale(self.image, (20, 20)), (0, 0))
         screen.blit(self.surf, (self.rect.x, self.rect.y))
+
+    def animate(self):
+        for image in self.images:
+            self.image = pg.image.load(image)
 
     def ubivat(self):
         if self.rect.top > HEIGHT:
@@ -105,7 +116,7 @@ class Coin(pg.sprite.Sprite):
             # self.speed = 15
         else:
             self.image = self.images[0]
-    
+
     def is_mega_coin(self):
         return self.random_number in [0, 1, 2]
 
@@ -135,6 +146,7 @@ while running:
     for coin in coins:
         coin.draw()
         coin.move()
+        coin.animate()
         coin.ubivat()
 
     if enemies.__len__() < 3:
@@ -156,9 +168,9 @@ while running:
 
     if score > d['highscore']:
         d['highscore'] = score
-        
+
     text = font.render(f"{score}", True, BLACK)
     screen.blit(text, (20, 20))
-        
+
     pg.display.update()
 pg.quit()
