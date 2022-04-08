@@ -1,6 +1,7 @@
 import pygame
 from constants import *
 from random import randint
+import math
 pygame.init()
 
 background = pygame.transform.scale(pygame.image.load(r".\images\bg.jpeg"), (WIDTH, HEIGHT))
@@ -20,7 +21,7 @@ class Player(pygame.sprite.Sprite):
         self.y = 500
         self.speed = 10
         self.image = pygame.transform.scale(pygame.image.load('.\images\Audi.png'),(40,90))
-        self.surf = pygame.Surface((40,90), pygame.SRCALPHA)
+        self.surf = pygame.Surface((40, 90), pygame.SRCALPHA)
         self.rect = self.surf.get_rect(center=(self.x,self.y))
     
     def move(self):
@@ -35,7 +36,7 @@ class Player(pygame.sprite.Sprite):
             self.rect.move_ip(0, self.speed)
 
     def draw(self):
-        self.surf.blit(self.image, (0,0))
+        self.surf.blit(self.image, (0, 0))
         screen.blit(self.surf, self.rect)
 
 class Enemy(pygame.sprite.Sprite):
@@ -68,9 +69,13 @@ class Coin(pygame.sprite.Sprite):
         self.image = pygame.transform.scale(pygame.image.load(".\images\Gold_1.png"), (25,25))
         self.surf = pygame.Surface((25,25), pygame.SRCALPHA)
         self.rect = self.surf.get_rect(center = (self.x, self.y))
+
+        self.images = [pygame.image.load(f"./coin_images/c{i}.png") for i in range(1, 7)]
+        self.anim_cnt = 0
     
     def move(self):
         self.rect.move_ip(0, self.speed)
+        
     
     def draw(self):
         self.surf.blit(self.image, (0,0))
@@ -79,6 +84,11 @@ class Coin(pygame.sprite.Sprite):
     def kil(self):
         if self.rect.top > HEIGHT:
             self.kill()
+
+    def animate(self):
+        self.anim_cnt += 1
+        self.image = self.images[self.anim_cnt % len(self.images)]
+
 
 clock = pygame.time.Clock()
 font = pygame.font.SysFont("Times New Roman", 25)
@@ -99,8 +109,11 @@ SHOCK = pygame.USEREVENT
 
 FAST = pygame.USEREVENT + 1
 NOT_FAST = pygame.USEREVENT + 2
+FLIP = pygame.USEREVENT + 3
 
-pygame.time.set_timer(SHOCK, 5000)
+# pygame.time.set_timer(SHOCK, 5000)
+pygame.time.set_timer(FLIP, 100)
+
 
 SCORE = 0
 game_over = font_large.render("GAME OVER", False, BLACK)
@@ -108,10 +121,21 @@ finished = False
 lose = False
 
 
+car_images = [pygame.transform.rotate(p.image, math.radians(i)) for i in range(361)]
+flame = pygame.image.load('./images/flame.png')
+flame = pygame.transform.scale(flame, (100, 100))
+flame = pygame.transform.rotate(flame, 180)
 
+animation_count = 0
+car_animation_count = 0
 
 while not finished:
     clock.tick(FPS)
+    
+
+    if car_animation_count + 1 > 360:
+        animation_count = 0 
+    
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             finished = True
@@ -119,10 +143,13 @@ while not finished:
         if event.type == SHOCK:
             shock_sound.play()
 
-        if event.type == FAST:
-            FPS = 50
-        if event.type == NOT_FAST:
-            FPS = 30
+        # if event.type == FAST:
+        #     FPS = 50
+        # if event.type == NOT_FAST:
+        #     FPS = 30
+        if event.type == FLIP:
+            for coin in coins:
+                coin.animate()
         
         
 
@@ -140,6 +167,7 @@ while not finished:
     text = font.render(f"SCORE: {SCORE}", False, RED)
     screen.blit(text, (50,20))
 
+    p.image = car_images[animation_count]
     p.draw()
     p.move()
     
@@ -157,6 +185,8 @@ while not finished:
     #     enemy.draw()
     #     enemy.move()
     #     enemy.kil()
+
+    screen.blit(flame, (p.rect.bottomleft[0] - 20, p.rect.bottomleft[1] ))
 
     for coin in coins:
         coin.draw()
