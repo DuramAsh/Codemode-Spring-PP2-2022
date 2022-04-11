@@ -127,7 +127,7 @@ class Coin(pg.sprite.Sprite):
             self.image = pg.image.load(self.images[0])
 
     def is_mega_coin(self):
-        return self.random_number == 10
+        return self.random_number == 5
 
 
 P1 = Player()
@@ -140,8 +140,8 @@ while running:
     for event in pg.event.get():
         if event.type == pg.QUIT:
             running = False
-        # if event.type == MEGA_COIN:
-        #     P1.speed = 30
+        if event.type == MEGA_COIN:
+            P1.speed = 30
         if event.type == FLIP:
             for coin in coins:
                 coin.animate()
