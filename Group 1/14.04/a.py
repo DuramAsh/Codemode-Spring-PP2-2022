@@ -30,6 +30,12 @@ sql3 = '''
 		PRIMARY KEY (person_name, company_name)
 	)
 '''
+# (Danial, Codemode)
+# Danial Zheka's
+# Bakytzhan Zheka's
+# Danial Codemode
+
+
 
 current.execute(sql3)
 
