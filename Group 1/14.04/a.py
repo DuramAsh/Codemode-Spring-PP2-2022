@@ -24,13 +24,14 @@ sql2 = '''
 '''
 sql3 = '''
 	CREATE TABLE works(
-		person_name VARCHAR(255) PRIMARY KEY,
-		company_name VARCHAR(255),
+		person_name VARCHAR(255) REFERENCES employee (person_name),
+		company_name VARCHAR(255) REFERENCES company (company_name),
 		salary INTEGER,
 		PRIMARY KEY (person_name, company_name)
 	)
 '''
-current.execute(sql2)
+
+current.execute(sql3)
 
 # final = current.fetchall()
 # print(final)
