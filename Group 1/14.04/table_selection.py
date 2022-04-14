@@ -16,22 +16,29 @@ current = config.cursor()
 # sql = '''
 # 	SELECT * FROM works ORDER BY salary DESC;
 # '''
+# sql = '''
+# 	SELECT DISTINCT employee.person_name, company.company_name
+# FROM employee,
+#      works,
+#      company
+# WHERE employee.city = company.city
+#   AND works.company_name = company.company_name
+#   AND works.person_name = employee.person_name;
+# '''
+
+# sql = '''
+# 	UPDATE employee SET person_name = 'NURSAT_OG' WHERE person_name = 'Nursat'
+# '''
 sql = '''
-	SELECT DISTINCT employee.person_name, company.company_name
-FROM employee,
-     works,
-     company
-WHERE employee.city = company.city
-  AND works.company_name = company.company_name
-  AND works.person_name = employee.person_name;
+	UPDATE employee SET person_name = 'Yaslan' WHERE person_name = 'yaslan'
 '''
 
 
 current.execute(sql)
 
-final = current.fetchall()
-print(final)
+# final = current.fetchall()
+# print(final)
 
 current.close()
-# config.commit()
+config.commit()
 config.close()
