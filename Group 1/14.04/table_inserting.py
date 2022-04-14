@@ -11,11 +11,11 @@ current = config.cursor()
 
 
 sql = '''
-	INSERT INTO employee VALUES ('Aibergen', 'Momyshuly 12', 'Talgar');
-INSERT INTO employee VALUES ('yaslan', 'Makataeva Seifullina))', 'Uzynagash');
-INSERT INTO employee VALUES ('Nursat', 'Lenina 43', 'Talgar');
-INSERT INTO employee VALUES ('Adema', 'Merkur-grad', 'Almaty');
-INSERT INTO employee VALUES ('Darina', 'Kutuzova 234', 'Pavlodar');
+INSERT INTO works VALUES ('Aibergen', 'Tungi Kobelek', 200000);
+INSERT INTO works VALUES ('Adema', 'Google', 2000000);
+INSERT INTO works VALUES ('Darina', 'Orystar_club_Cumelot', 7182);
+INSERT INTO works VALUES ('yaslan', 'Maqpal', 30000000);
+INSERT INTO works VALUES ('Danial', 'Orystar_club_Cumelot', -1500);
 '''
 
 
