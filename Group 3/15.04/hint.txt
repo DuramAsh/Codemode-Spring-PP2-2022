@@ -1,0 +1,17 @@
+Add new table:
+    CREATE TABLE users(
+        username VARCHAR(255),
+        age INTEGER,
+        registration_date DATE,
+        information TEXT,
+        password VARCHAR(50)
+    );
+
+Insert a row to the table:
+    INSERT INTO table_name VALUES(value_1, value_2, ...)
+
+Delete some row from table:
+    DELETE FROM table_name WHERE condition
+
+Update some row(s) in table:
+    UPDATE table_name SET some_column = some_value WHERE some_column = some_value
