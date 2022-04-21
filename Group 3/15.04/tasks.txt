@@ -1,0 +1,3 @@
+1. Find name of each employee who works in ______
+2. Find name and city of residence of each employee who works in ___________
+3. Find the name, streen, and city of each employee whos salary is more that _______
