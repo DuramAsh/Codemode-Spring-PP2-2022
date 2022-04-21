@@ -15,15 +15,10 @@ try:
     to_change = input("What do you want to change?: ")
     data = input("To what value set the old value?: ")
     to_change = to_change.lower()
-    if to_change == 'username':
-        sql = '''
-            UPDATE phonebook SET username = %s WHERE id = %s;
-        '''
-    elif to_change == 'number':
-        sql = '''
-            UPDATE phonebook SET number = %s WHERE id = %s;
-        '''
-    current.execute(sql, (data, user_id))
+    sql = '''
+        UPDATE phonebook SET %s = %s WHERE id = %s;
+    '''
+    current.execute(sql, (to_change, data, user_id))
     config.commit()
 except:
     print("ERROR!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
