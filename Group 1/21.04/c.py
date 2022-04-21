@@ -28,7 +28,7 @@ sql = '''
 for row in arr:
     current.execute(sql, row)
 
-final = current.fetchall()
+final = current.fetchone()
 print(final)
 
 current.close()
