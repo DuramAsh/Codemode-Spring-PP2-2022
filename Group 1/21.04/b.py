@@ -10,16 +10,18 @@ config = psycopg2.connect(
 
 current = config.cursor()
 
-current.execute(
-    '''
-    CREATE TABLE phonebook(
-        id INTEGER PRIMARY KEY,
-        username VARCHAR(20),
-        number VARCHAR(12),
-        email VARCHAR(30)
-    )
-    '''
-)
+id = 1
+username = 'Adil'
+number = '87088341979'
+email = 'adilzhapar2002@gmail.com'
+
+sql = '''
+    INSERT INTO phonebook
+    VALUES (%s, %s, %s, %s);
+'''
+
+current.execute(sql, (id, username, number, email))
+
 
 config.commit()
 current.close()
